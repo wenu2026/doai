@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>doai Demo B - 路线图产品版本</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17212b;
+      --body: #3c4a55;
+      --muted: #6a7782;
+      --line: #d9e1e7;
+      --page: #f5f7f8;
+      --surface: #ffffff;
+      --soft: #f9fbfc;
+      --green: #287454;
+      --blue: #2769a8;
+      --amber: #a56816;
+      --rose: #a64e4e;
+      --violet: #6457a0;
+      --green-soft: #edf6f1;
+      --blue-soft: #eef5fb;
+      --amber-soft: #fff7e7;
+      --shadow: 0 18px 42px rgba(25, 36, 48, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(40, 116, 84, 0.08), transparent 30%),
+        linear-gradient(180deg, #fbfcfd 0%, var(--page) 42%, #f8fafb 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 18px;
+      border-right: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(16px);
+      overflow: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      font-size: 20px;
+      font-weight: 850;
+    }
+
+    .mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: var(--green-soft);
+      font-size: 13px;
+    }
+
+    .side-label {
+      margin: 24px 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .side-link {
+      min-height: 38px;
+      padding: 0 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #40505a;
+      font-size: 14px;
+    }
+
+    .side-link:hover,
+    .side-link.active {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 850;
+    }
+
+    .main {
+      padding: 28px;
+    }
+
+    .top {
+      max-width: 1180px;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .crumb {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .button {
+      min-height: 42px;
+      padding: 0 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .button.light {
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .button.green {
+      border-color: var(--green);
+      background: var(--green);
+    }
+
+    .button.ghost {
+      border-color: var(--line);
+      background: transparent;
+      color: var(--body);
+    }
+
+    .shell {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(330px, 0.88fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy,
+    .level-card,
+    .panel,
+    .service-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 30px;
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .tag.green {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .tag.amber {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 16px 0 12px;
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.07;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 0;
+      color: var(--body);
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .signal-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .signal {
+      min-height: 82px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .signal b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .signal span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .level-card {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .level-card h2,
+    .section-title h2,
+    .panel h2,
+    .service-card h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.25;
+    }
+
+    .level-copy {
+      margin: 8px 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .mini-chart {
+      position: relative;
+      height: 180px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, transparent 24%, rgba(215, 225, 232, 0.6) 25%, transparent 26%, transparent 49%, rgba(215, 225, 232, 0.6) 50%, transparent 51%, transparent 74%, rgba(215, 225, 232, 0.6) 75%, transparent 76%),
+        linear-gradient(180deg, #ffffff, #f7fafb);
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .level-line {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 42px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--green), var(--blue), var(--violet), var(--amber), var(--rose));
+    }
+
+    .level-point {
+      position: absolute;
+      bottom: 30px;
+      width: 28px;
+      height: 28px;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 8px 24px rgba(39, 105, 168, 0.28);
+    }
+
+    .p1 { left: 15%; }
+    .p2 { left: 35%; }
+    .p3 { left: 55%; }
+    .p4 { left: 75%; }
+
+    .level-labels {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 70px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      color: #40505a;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .mini-chart strong {
+      display: block;
+      max-width: 280px;
+      font-size: 17px;
+    }
+
+    .mini-chart p {
+      max-width: 290px;
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 14px;
+    }
+
+    .section-title p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .problem,
+    .resource,
+    .first-win,
+    .grade-chip {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    .problem {
+      min-height: 124px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .problem:hover {
+      transform: translateY(-2px);
+      border-color: #b9d2c4;
+      box-shadow: 0 14px 32px rgba(25, 36, 48, 0.08);
+    }
+
+    .problem b {
+      font-size: 16px;
+      line-height: 1.36;
+    }
+
+    .problem span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .route-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .progress {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .grade-chip {
+      min-height: 92px;
+      padding: 10px;
+    }
+
+    .grade-chip.active {
+      border-color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .grade-chip b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .grade-chip span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .path-block {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .step-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 850;
+      font-size: 13px;
+    }
+
+    .step h3 {
+      margin: 0 0 3px;
+      font-size: 16px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .first-win-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .first-win {
+      min-height: 150px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .time {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .first-win h3 {
+      margin: 8px 0 6px;
+      font-size: 20px;
+      line-height: 1.28;
+    }
+
+    .first-win p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(330px, 0.95fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .resource-tools {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .search {
+      flex: 1 1 auto;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--muted);
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter,
+    .badge {
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      padding: 6px 11px;
+      color: #43505a;
+    }
+
+    .filter.active {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .resource-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .resource {
+      padding: 16px;
+    }
+
+    .resource-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .resource h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      padding: 3px 9px;
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .outcome {
+      margin: 0 0 10px;
+      color: #2f4858;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .meta b {
+      color: #3d4852;
+    }
+
+    .service-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin: 18px 0 40px;
+    }
+
+    .service-card {
+      padding: 22px;
+    }
+
+    .service-card p {
+      margin: 10px 0 16px;
+      color: var(--muted);
+    }
+
+    .metric {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .metric b {
+      color: var(--ink);
+      font-size: 28px;
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .main {
+        padding: 22px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .route-grid,
+      .dashboard,
+      .service-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-grid,
+      .first-win-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .progress {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .main {
+        padding: 16px;
+      }
+
+      .top,
+      .section-title,
+      .resource-tools {
+        display: block;
+      }
+
+      .top-actions,
+      .hero-actions,
+      .filters {
+        margin-top: 10px;
+      }
+
+      .problem-grid,
+      .first-win-grid,
+      .signal-row,
+      .meta,
+      .progress {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .level-card,
+      .panel,
+      .service-card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand"><span class="mark">do</span><span>doai</span></div>
+      <div class="side-label">学习入口</div>
+      <a class="side-link active" href="#problems">问题入口 <span>优先</span></a>
+      <a class="side-link" href="#route">推荐路线 <span>二年级</span></a>
+      <a class="side-link" href="#wins">第一次成果 <span>3</span></a>
+      <a class="side-link" href="#resources">资源库 <span>字段</span></a>
+      <a class="side-link" href="./ai-level-assessment.html">AI 水平评估 <span>新</span></a>
+      <div class="side-label">版本切换</div>
+      <a class="side-link" href="./a-minimum-credible.html">版本 A</a>
+      <a class="side-link active" href="./b-roadmap-product.html">版本 B</a>
+      <a class="side-link" href="./b2-optimized-roadmap.html">版本 B2</a>
+      <a class="side-link" href="./c-service-validation.html">版本 C</a>
+    </aside>
+
+    <main class="main">
+      <header class="top">
+        <div class="crumb">doai / 学习路线图 / 面向 AI 小白与职场人士</div>
+        <div class="top-actions">
+          <a class="button light" href="./ai-level-assessment.html">AI 水平评估</a>
+          <a class="button green" href="#service">查看 6-8 月内测</a>
+        </div>
+      </header>
+
+      <div class="shell">
+        <section class="hero">
+          <div class="hero-copy">
+            <div>
+              <span class="tag">路线图产品版本</span>
+              <h1>把 AI 学习变成<br>可执行路线图。</h1>
+              <p class="lead">doai 帮 AI 小白和职场人士判断当前阶段、找到下一步路线，并把 AI 用到真实工作和生活里。</p>
+              <div class="hero-actions">
+                <a class="button" href="#problems">从我的问题开始</a>
+                <a class="button light" href="./ai-level-assessment.html">先评估 AI 水平</a>
+              </div>
+            </div>
+            <div class="signal-row" aria-label="核心产品信号">
+              <div class="signal"><b>路径先行</b><span>不先堆资料，先判断阶段和目标。</span></div>
+              <div class="signal"><b>成果导向</b><span>每个资源对应一个可见产出。</span></div>
+              <div class="signal"><b>服务承接</b><span>咨询和陪跑只在用户需要时出现。</span></div>
+            </div>
+          </div>
+
+          <aside class="level-card">
+            <div>
+              <span class="tag green">AI 水平评估图</span>
+              <h2 style="margin-top:12px">先认识自己的 AI 使用水平</h2>
+              <p class="level-copy">评估页先用占位模型展示，后续补充题目、评分和个性化路线推荐。</p>
+            </div>
+            <div class="mini-chart" aria-label="AI 水平评估占位图">
+              <strong>当前示例：二年级「岗位重构」</strong>
+              <p>从会用工具，走向能改造一类真实任务。</p>
+              <div class="level-labels">
+                <span>小试</span>
+                <span>岗位</span>
+                <span>工程</span>
+                <span>组织</span>
+                <span>前沿</span>
+              </div>
+              <div class="level-line"></div>
+              <div class="level-point p2"></div>
+            </div>
+            <a class="button light" style="margin-top:16px" href="./ai-level-assessment.html">查看评估页</a>
+          </aside>
+        </section>
+
+        <section class="section" id="problems">
+          <div class="section-title">
+            <h2>先从你的问题进入</h2>
+            <p>参考成熟学习平台的路径设计，第一入口不要求用户搜索关键词，而是让用户选择当前状态。</p>
+          </div>
+          <div class="problem-grid">
+            <a class="problem" href="#route">
+              <b>我不知道怎么学 AI</b>
+              <span>进入一年级：小试牛刀</span>
+            </a>
+            <a class="problem" href="#route">
+              <b>我收藏了很多资料但用不起来</b>
+              <span>先筛出主路线</span>
+            </a>
+            <a class="problem" href="#route">
+              <b>我想把 AI 用到工作/生活</b>
+              <span>进入二年级：岗位重构</span>
+            </a>
+            <a class="problem" href="#route">
+              <b>我想做出一个 AI 项目</b>
+              <span>进入三年级：AI 工程师</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="section route-grid" id="route">
+          <article class="panel">
+            <span class="tag green">当前推荐路线</span>
+            <h2 style="margin-top:12px">二年级：岗位重构</h2>
+            <p style="margin:10px 0 0;color:var(--muted)">根据“想把 AI 用到工作/生活”，优先进入岗位重构。目标不是继续看资料，而是让 AI 稳定完成一类真实任务。</p>
+            <div class="progress">
+              <div class="grade-chip"><b>一年级</b><span>小试牛刀</span></div>
+              <div class="grade-chip active"><b>二年级</b><span>岗位重构</span></div>
+              <div class="grade-chip"><b>三年级</b><span>AI 工程师</span></div>
+              <div class="grade-chip"><b>四年级</b><span>组织/行业赋能</span></div>
+              <div class="grade-chip"><b>五年级</b><span>创造新时代</span></div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <span class="tag">本阶段 4 步</span>
+            <h2 style="margin-top:12px">从会用 AI 到能重构任务</h2>
+            <div class="path-block">
+              <div class="step">
+                <span class="step-num">1</span>
+                <div><h3>梳理高频任务</h3><p>找出重复、耗时、可模板化的工作或生活任务。</p></div>
+              </div>
+              <div class="step">
+                <span class="step-num">2</span>
+                <div><h3>搭建 AI 工作台</h3><p>组合常用工具、提示词、资料库和输出模板。</p></div>
+              </div>
+              <div class="step">
+                <span class="step-num">3</span>
+                <div><h3>形成可复用流程</h3><p>让 AI 不只回答问题，而是稳定完成一类任务。</p></div>
+              </div>
+              <div class="step">
+                <span class="step-num">4</span>
+                <div><h3>沉淀个人案例</h3><p>把一次实践整理成作品、复盘或对外可展示案例。</p></div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="section" id="wins">
+          <div class="section-title">
+            <h2>先拿到第一次成果</h2>
+            <p>用户先做出东西，再理解体系。这个区域用于降低 AI 小白的第一步门槛。</p>
+          </div>
+          <div class="first-win-grid">
+            <article class="first-win">
+              <div><div class="time">15 分钟</div><h3>生成你的 AI 学习路线图</h3><p>回答几个问题，得到适合当前阶段的学习路径。</p></div>
+              <a class="button ghost" href="./ai-level-assessment.html">开始评估</a>
+            </article>
+            <article class="first-win">
+              <div><div class="time">30 分钟</div><h3>改造一个真实任务</h3><p>把一个重复任务整理成提示词、模板或检查清单。</p></div>
+              <a class="button ghost" href="#resources">找资源</a>
+            </article>
+            <article class="first-win">
+              <div><div class="time">60 分钟</div><h3>搭建个人 AI 工作台</h3><p>把工具、资料和输出格式组合成自己的工作流。</p></div>
+              <a class="button ghost" href="#resources">看主线</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="section dashboard" id="resources">
+          <article class="panel">
+            <div class="section-title">
+              <h2>主路线资源</h2>
+              <p>搜索不是第一入口，但在路线明确后，资源库要能快速筛出下一步。</p>
+            </div>
+            <div class="resource-tools">
+              <div class="search">搜索资源、工具、模板、项目案例</div>
+              <div class="filters">
+                <span class="filter active">二年级主线</span>
+                <span class="filter">模板</span>
+                <span class="filter">工具</span>
+                <span class="filter">免费</span>
+              </div>
+            </div>
+            <div class="resource-list">
+              <article class="resource">
+                <div class="resource-head">
+                  <h3>AI 工作台搭建清单</h3>
+                  <span class="badge">主路线</span>
+                </div>
+                <p class="outcome">产出：搭好你的第一个个人 AI 工作台。</p>
+                <div class="meta">
+                  <span><b>适合：</b>AI 小白、职场人士</span>
+                  <span><b>解决：</b>工具太多，不知道怎么组合</span>
+                  <span><b>推荐理由：</b>先建立稳定入口</span>
+                  <span><b>耗时：</b>45 分钟，免费</span>
+                </div>
+              </article>
+              <article class="resource">
+                <div class="resource-head">
+                  <h3>高频任务提示词改写法</h3>
+                  <span class="badge">主路线</span>
+                </div>
+                <p class="outcome">产出：把一个真实任务改造成可复用提示词。</p>
+                <div class="meta">
+                  <span><b>适合：</b>刚开始用 AI 的用户</span>
+                  <span><b>解决：</b>提问很泛，结果不可用</span>
+                  <span><b>推荐理由：</b>最快看到工作变化</span>
+                  <span><b>耗时：</b>25 分钟，免费</span>
+                </div>
+              </article>
+            </div>
+          </article>
+
+          <aside class="panel">
+            <span class="tag amber">案例故事</span>
+            <h2 style="margin-top:12px">从资料焦虑到个人工作台</h2>
+            <p style="margin:10px 0 16px;color:var(--muted)">默认匿名，用户授权后展示昵称、职业或作品链接。案例用于证明 doai 的价值不是讲概念，而是帮助用户把 AI 用进真实流程。</p>
+            <div class="path-block">
+              <div class="step"><span class="step-num">前</span><div><h3>问题</h3><p>收藏很多工具和教程，但没有固定使用流程。</p></div></div>
+              <div class="step"><span class="step-num">后</span><div><h3>成果</h3><p>沉淀资料整理、输出润色、复盘三个固定步骤。</p></div></div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="service-panel" id="service">
+          <article class="service-card">
+            <span class="tag">6-8 月内测</span>
+            <h2 style="margin-top:12px">AI 学习路线咨询</h2>
+            <p>限 15 位，建议价 99 元。咨询后根据质量付费，交付个人 AI 学习/应用路线图。</p>
+            <div class="metric"><span>首期名额</span><b>15</b></div>
+          </article>
+          <article class="service-card">
+            <span class="tag green">一对一陪跑</span>
+            <h2 style="margin-top:12px">4 周完成 1+3 成果</h2>
+            <p>限 5 位，建议价 699 元。完成 1 个主项目 + 3 个小工具，按用户真实场景定制。</p>
+            <div class="metric"><span>首期名额</span><b>5</b></div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

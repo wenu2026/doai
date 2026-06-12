@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>doai - AI 水平评估图</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17212b;
+      --body: #3c4a55;
+      --muted: #6a7782;
+      --line: #d9e1e7;
+      --page: #f5f7f8;
+      --surface: #ffffff;
+      --soft: #f9fbfc;
+      --green: #287454;
+      --blue: #2769a8;
+      --amber: #a56816;
+      --rose: #a64e4e;
+      --violet: #6457a0;
+      --green-soft: #edf6f1;
+      --blue-soft: #eef5fb;
+      --amber-soft: #fff7e7;
+      --shadow: 0 18px 42px rgba(25, 36, 48, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(39, 105, 168, 0.08), transparent 30%),
+        linear-gradient(180deg, #fbfcfd 0%, var(--page) 48%, #f8fafb 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 18px;
+      border-right: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(16px);
+      overflow: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      font-size: 20px;
+      font-weight: 850;
+    }
+
+    .mark {
+      width: 36px;
+      height: 36px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--green-soft);
+      font-size: 13px;
+    }
+
+    .side-label {
+      margin: 24px 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .side-link {
+      min-height: 38px;
+      padding: 0 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #40505a;
+      font-size: 14px;
+    }
+
+    .side-link:hover,
+    .side-link.active {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 850;
+    }
+
+    .main {
+      padding: 28px;
+    }
+
+    .top,
+    .shell {
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .top {
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .crumb {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .button {
+      min-height: 42px;
+      padding: 0 15px;
+      border: 1px solid var(--ink);
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .button.light {
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(430px, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .tag.green {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    h1 {
+      margin: 16px 0 12px;
+      font-size: clamp(34px, 4.2vw, 56px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--body);
+      font-size: 18px;
+    }
+
+    .note {
+      margin-top: 18px;
+      padding: 14px;
+      border: 1px solid #d8c69f;
+      border-radius: 8px;
+      background: var(--amber-soft);
+      color: #6d4a14;
+      font-size: 14px;
+    }
+
+    .chart-panel {
+      min-height: 430px;
+    }
+
+    .axis-chart {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .radar {
+      width: 100%;
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+    }
+
+    .radar svg {
+      width: min(360px, 100%);
+      height: auto;
+      display: block;
+    }
+
+    .dimension-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .dimension {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      padding: 12px;
+    }
+
+    .dimension b {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .bar {
+      height: 8px;
+      border-radius: 999px;
+      background: #e6edf1;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 14px;
+    }
+
+    .section-title h2,
+    .panel h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.25;
+    }
+
+    .section-title p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .level {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 16px;
+      min-height: 150px;
+    }
+
+    .level.active {
+      border-color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .level b {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    .level span {
+      color: var(--muted);
+      font-size: 13px;
+      display: block;
+    }
+
+    .placeholder-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+
+    .placeholder-list {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .axis-chart,
+      .placeholder-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .level-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .main {
+        padding: 16px;
+      }
+
+      .top,
+      .section-title {
+        display: block;
+      }
+
+      .top .button {
+        margin-top: 10px;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .level-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand"><span class="mark">do</span><span>doai</span></div>
+      <div class="side-label">学习入口</div>
+      <a class="side-link" href="./b-roadmap-product.html#problems">问题入口</a>
+      <a class="side-link" href="./b-roadmap-product.html#route">推荐路线</a>
+      <a class="side-link active" href="./ai-level-assessment.html">AI 水平评估 <span>占位</span></a>
+      <a class="side-link" href="./b-roadmap-product.html#resources">资源库</a>
+      <div class="side-label">版本切换</div>
+      <a class="side-link" href="./b-roadmap-product.html">返回版本 B</a>
+    </aside>
+
+    <main class="main">
+      <header class="top">
+        <div class="crumb">doai / AI 水平评估 / 后续填充题目与评分</div>
+        <a class="button light" href="./b-roadmap-product.html">返回路线图</a>
+      </header>
+
+      <div class="shell">
+        <section class="hero">
+          <article class="panel">
+            <span class="tag green">单独页面占位</span>
+            <h1>AI 水平评估图</h1>
+            <p class="lead">帮助用户先认识自己的 AI 使用水平，再进入对应年级和学习路线。当前为视觉和结构占位，后续可补充问卷、评分规则和个性化推荐。</p>
+            <div class="note">占位说明：图中分值为示例，不代表真实评估结果。正式版可按工具使用、提示表达、场景改造、工作流搭建、项目交付、组织赋能六个维度评分。</div>
+          </article>
+
+          <article class="panel chart-panel">
+            <div class="axis-chart">
+              <div class="radar" aria-label="AI 水平雷达占位图">
+                <svg viewBox="0 0 360 360" role="img" aria-labelledby="radar-title">
+                  <title id="radar-title">AI 水平评估雷达图占位</title>
+                  <polygon points="180,30 310,105 310,255 180,330 50,255 50,105" fill="#f7fafb" stroke="#d9e1e7" stroke-width="2"></polygon>
+                  <polygon points="180,80 267,130 267,230 180,280 93,230 93,130" fill="none" stroke="#d9e1e7" stroke-width="2"></polygon>
+                  <polygon points="180,128 226,154 226,206 180,232 134,206 134,154" fill="none" stroke="#d9e1e7" stroke-width="2"></polygon>
+                  <line x1="180" y1="30" x2="180" y2="330" stroke="#d9e1e7"></line>
+                  <line x1="50" y1="105" x2="310" y2="255" stroke="#d9e1e7"></line>
+                  <line x1="310" y1="105" x2="50" y2="255" stroke="#d9e1e7"></line>
+                  <polygon points="180,70 254,138 245,238 180,258 108,222 105,124" fill="rgba(39,105,168,0.20)" stroke="#2769a8" stroke-width="4"></polygon>
+                  <circle cx="180" cy="70" r="5" fill="#2769a8"></circle>
+                  <circle cx="254" cy="138" r="5" fill="#2769a8"></circle>
+                  <circle cx="245" cy="238" r="5" fill="#2769a8"></circle>
+                  <circle cx="180" cy="258" r="5" fill="#2769a8"></circle>
+                  <circle cx="108" cy="222" r="5" fill="#2769a8"></circle>
+                  <circle cx="105" cy="124" r="5" fill="#2769a8"></circle>
+                  <text x="180" y="20" text-anchor="middle" font-size="13" fill="#3c4a55">工具使用</text>
+                  <text x="324" y="104" text-anchor="start" font-size="13" fill="#3c4a55">提示表达</text>
+                  <text x="324" y="265" text-anchor="start" font-size="13" fill="#3c4a55">场景改造</text>
+                  <text x="180" y="352" text-anchor="middle" font-size="13" fill="#3c4a55">工作流搭建</text>
+                  <text x="36" y="265" text-anchor="end" font-size="13" fill="#3c4a55">项目交付</text>
+                  <text x="36" y="104" text-anchor="end" font-size="13" fill="#3c4a55">组织赋能</text>
+                </svg>
+              </div>
+              <div class="dimension-list">
+                <div class="dimension"><b>工具使用 <span>80</span></b><div class="bar"><span style="width:80%"></span></div></div>
+                <div class="dimension"><b>提示表达 <span>70</span></b><div class="bar"><span style="width:70%"></span></div></div>
+                <div class="dimension"><b>场景改造 <span>64</span></b><div class="bar"><span style="width:64%"></span></div></div>
+                <div class="dimension"><b>工作流搭建 <span>52</span></b><div class="bar"><span style="width:52%"></span></div></div>
+                <div class="dimension"><b>项目交付 <span>46</span></b><div class="bar"><span style="width:46%"></span></div></div>
+                <div class="dimension"><b>组织赋能 <span>38</span></b><div class="bar"><span style="width:38%"></span></div></div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="section">
+          <div class="section-title">
+            <h2>五个水平阶段</h2>
+            <p>评估结果最终映射到 doai 的五个年级，帮助用户知道自己接下来该学什么、做什么。</p>
+          </div>
+          <div class="level-grid">
+            <div class="level"><b>一年级：小试牛刀</b><span>会用工具完成简单任务。</span></div>
+            <div class="level active"><b>二年级：岗位重构</b><span>能把 AI 接入真实工作或生活任务。</span></div>
+            <div class="level"><b>三年级：AI 工程师</b><span>能用 AI 做项目、搭工作流。</span></div>
+            <div class="level"><b>四年级：组织/行业赋能</b><span>能设计团队或行业 AI 方案。</span></div>
+            <div class="level"><b>五年级：创造新时代</b><span>能跟踪前沿并形成判断框架。</span></div>
+          </div>
+        </section>
+
+        <section class="section placeholder-grid">
+          <article class="panel">
+            <span class="tag">后续内容</span>
+            <h2 style="margin-top:12px">评估问卷占位</h2>
+            <ul class="placeholder-list">
+              <li>你每周使用 AI 的频率</li>
+              <li>你是否有稳定提示词模板</li>
+              <li>你是否用 AI 改造过真实任务</li>
+              <li>你是否做出过可复用工具或项目</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <span class="tag green">后续内容</span>
+            <h2 style="margin-top:12px">结果推荐占位</h2>
+            <ul class="placeholder-list">
+              <li>推荐年级与学习路线</li>
+              <li>本周最小行动</li>
+              <li>3 条主路线资源</li>
+              <li>是否适合咨询或 4 周陪跑</li>
+            </ul>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

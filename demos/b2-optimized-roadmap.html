@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>doai Demo B2 - 优化路线图产品版本</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18222c;
+      --muted: #62717d;
+      --line: #d6dee4;
+      --surface: #ffffff;
+      --page: #f4f7f8;
+      --soft: #f9fbfc;
+      --green: #287454;
+      --blue: #2467a8;
+      --amber: #9d671b;
+      --rose: #a94d4d;
+      --violet: #6457a0;
+      --soft-green: #edf6f1;
+      --soft-blue: #eef5fb;
+      --soft-amber: #fff7e8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--page);
+      line-height: 1.58;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 18px;
+      border-right: 1px solid var(--line);
+      background: var(--surface);
+      overflow: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 26px;
+      font-size: 20px;
+      font-weight: 850;
+    }
+
+    .mark {
+      width: 36px;
+      height: 36px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--soft-green);
+      font-size: 13px;
+    }
+
+    .side-label {
+      margin: 24px 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .side-link {
+      min-height: 38px;
+      padding: 0 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #3f4a53;
+      font-size: 14px;
+    }
+
+    .side-link.active {
+      background: var(--soft-green);
+      color: var(--green);
+      font-weight: 850;
+    }
+
+    .main {
+      padding: 28px;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .crumb {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .button {
+      min-height: 42px;
+      padding: 0 15px;
+      border: 1px solid var(--ink);
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .button.light {
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .button.green {
+      border-color: var(--green);
+      background: var(--green);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.1fr) minmax(290px, 0.72fr);
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 22px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .tag.green {
+      background: var(--soft-green);
+      color: var(--green);
+    }
+
+    .tag.amber {
+      background: var(--soft-amber);
+      color: var(--amber);
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .diagnosis h2,
+    .route h2,
+    .quota h2,
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .route-title {
+      margin: 12px 0 10px;
+      font-size: clamp(30px, 3vw, 40px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .diagnosis p,
+    .route p,
+    .quota p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .choice-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .choice {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 12px;
+      align-items: start;
+      min-height: 76px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .choice.active {
+      border-color: var(--green);
+      background: var(--soft-green);
+    }
+
+    .dot {
+      width: 30px;
+      height: 30px;
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .choice strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .choice span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+      display: block;
+    }
+
+    .route-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .grade-row {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .grade {
+      min-height: 78px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: var(--soft);
+    }
+
+    .grade.active {
+      border-color: var(--green);
+      background: var(--soft-green);
+    }
+
+    .grade b {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+
+    .grade span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .reason {
+      border: 1px solid #bfd6c8;
+      border-radius: 8px;
+      background: #f3faf6;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .reason b {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .step {
+      min-height: 108px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 9px;
+    }
+
+    .step b {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 14px;
+    }
+
+    .step span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.38;
+    }
+
+    .action-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid #c7d8ed;
+      border-radius: 8px;
+      background: #f3f8fd;
+    }
+
+    .action-box strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .action-box span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .quota {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .quota-list {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .quota-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      padding: 13px;
+    }
+
+    .quota-item strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1.05;
+      margin-bottom: 4px;
+    }
+
+    .quota-item span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .mini-note {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .first-win-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .win {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 18px;
+      min-height: 154px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .win-time {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 850;
+      margin-bottom: 8px;
+    }
+
+    .win h3 {
+      margin: 0 0 6px;
+      font-size: 19px;
+    }
+
+    .win p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .resource-tools {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .search {
+      flex: 1 1 auto;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      padding: 0 13px;
+      font-size: 14px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 999px;
+      padding: 6px 11px;
+      color: #43505a;
+      font-size: 13px;
+    }
+
+    .filter.active {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--soft-blue);
+      font-weight: 850;
+    }
+
+    .resource-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .resource {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      padding: 16px;
+    }
+
+    .resource-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .resource h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      padding: 3px 9px;
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .outcome {
+      margin: 0 0 10px;
+      color: #2f4858;
+      font-weight: 750;
+      font-size: 14px;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .meta b {
+      color: #3c4852;
+    }
+
+    .case-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .case {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      padding: 16px;
+    }
+
+    .case h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .case p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .case-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .case-metrics span {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px;
+      color: #40505b;
+      font-size: 12px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .field {
+      min-height: 92px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 13px;
+    }
+
+    .field b {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .field span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.38;
+    }
+
+    @media (max-width: 1180px) {
+      .hero {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .quota {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        height: auto;
+        display: none;
+      }
+
+      .hero,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 740px) {
+      .main {
+        padding: 16px;
+      }
+
+      .top,
+      .section-head,
+      .resource-tools,
+      .action-box {
+        display: block;
+      }
+
+      .top-actions,
+      .filters {
+        margin-top: 10px;
+      }
+
+      .grade-row,
+      .steps,
+      .first-win-grid,
+      .field-grid,
+      .meta,
+      .case-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand"><span class="mark">do</span><span>doai</span></div>
+      <div class="side-label">学习入口</div>
+      <a class="side-link active" href="#diagnosis">问题诊断 <span>优先</span></a>
+      <a class="side-link" href="#route">推荐路线 <span>本周</span></a>
+      <a class="side-link" href="#first-win">第一次成果 <span>3</span></a>
+      <a class="side-link" href="#resources">资源库 <span>字段</span></a>
+      <a class="side-link" href="#cases">案例故事 <span>授权</span></a>
+      <div class="side-label">版本切换</div>
+      <a class="side-link" href="./a-minimum-credible.html">版本 A</a>
+      <a class="side-link" href="./b-roadmap-product.html">版本 B</a>
+      <a class="side-link active" href="./b2-optimized-roadmap.html">版本 B2</a>
+      <a class="side-link" href="./c-service-validation.html">版本 C</a>
+    </aside>
+
+    <main class="main">
+      <header class="top">
+        <div class="crumb">doai / 学习路线图 / 面向 AI 小白与职场人士</div>
+        <div class="top-actions">
+          <a class="button light" href="#resources">浏览资源库</a>
+          <a class="button green" href="#service">查看 6-8 月内测</a>
+        </div>
+      </header>
+
+      <section class="hero">
+        <article class="panel diagnosis" id="diagnosis">
+          <span class="tag green">先诊断，不先搜索</span>
+          <h2>你现在最卡在哪里？</h2>
+          <p>先选最接近的状态，doai 再给你推荐年级、路线和本周行动。</p>
+          <div class="choice-list">
+            <a class="choice" href="#route">
+              <span class="dot">1</span>
+              <span><strong>我不知道怎么学 AI</strong><span>需要从一年级开始建立学习路径。</span></span>
+            </a>
+            <a class="choice" href="#route">
+              <span class="dot">2</span>
+              <span><strong>我收藏了很多资料但用不起来</strong><span>需要主路线，而不是更多链接。</span></span>
+            </a>
+            <a class="choice active" href="#route">
+              <span class="dot">3</span>
+              <span><strong>我想把 AI 用到工作/生活</strong><span>适合进入二年级：岗位重构。</span></span>
+            </a>
+            <a class="choice" href="#route">
+              <span class="dot">4</span>
+              <span><strong>我想做出一个 AI 项目</strong><span>适合进入三年级：AI 工程师。</span></span>
+            </a>
+          </div>
+        </article>
+
+        <article class="panel route" id="route">
+          <div class="route-header">
+            <div>
+              <span class="tag">推荐结果</span>
+              <h1 class="route-title">二年级：岗位重构</h1>
+              <p class="lead">你的关键任务不是继续囤资料，而是把 AI 接入一个真实任务，形成可复用的个人工作模式。</p>
+            </div>
+          </div>
+
+          <div class="grade-row" aria-label="五个年级路线">
+            <div class="grade"><b>一年级</b><span>小试牛刀</span></div>
+            <div class="grade active"><b>二年级</b><span>岗位重构</span></div>
+            <div class="grade"><b>三年级</b><span>AI 工程师</span></div>
+            <div class="grade"><b>四年级</b><span>组织/行业赋能</span></div>
+            <div class="grade"><b>五年级</b><span>创造新时代</span></div>
+          </div>
+
+          <div class="reason">
+            <b>为什么推荐这条路线</b>
+            <span>你已经有明确使用意图，需要从“会问 AI”升级到“让 AI 稳定完成一类任务”。</span>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <span class="step-num">1</span>
+              <b>梳理高频任务</b>
+              <span>找出重复、耗时、可模板化的工作或生活任务。</span>
+            </div>
+            <div class="step">
+              <span class="step-num">2</span>
+              <b>搭建 AI 工作台</b>
+              <span>组合工具、提示词、资料库和输出模板。</span>
+            </div>
+            <div class="step">
+              <span class="step-num">3</span>
+              <b>沉淀可复用流程</b>
+              <span>把一次尝试变成以后可以持续复用的流程。</span>
+            </div>
+          </div>
+
+          <div class="action-box">
+            <div>
+              <strong>本周最小行动</strong>
+              <span>选 1 个真实任务，用 AI 做出一个可复用模板或小工具。</span>
+            </div>
+            <a class="button" href="#first-win">选成果</a>
+          </div>
+        </article>
+
+        <aside class="panel quota" id="service">
+          <div>
+            <span class="tag amber">2026 年 6-8 月首期内测</span>
+            <h2>先体验，后付费</h2>
+            <p>如果你希望有人帮你判断路线、拆项目、复盘成果，可以申请内测服务。</p>
+            <div class="quota-list">
+              <div class="quota-item">
+                <strong>15 位</strong>
+                <span>AI 学习路线咨询，建议价 99 元</span>
+              </div>
+              <div class="quota-item">
+                <strong>5 位</strong>
+                <span>一对一 AI 赋能陪跑，建议价 699 元</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <a class="button green" href="#">申请内测名额</a>
+            <p class="mini-note" style="margin-top:12px">完成咨询或陪跑后，再根据质量按建议价付费。</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" id="first-win">
+        <div class="section-head">
+          <h2>先拿到第一次成果</h2>
+          <p>参考优秀学习项目的做法，给用户一个低门槛入口：先做出东西，再理解背后的体系。</p>
+        </div>
+        <div class="first-win-grid">
+          <article class="win">
+            <div>
+              <div class="win-time">15 分钟</div>
+              <h3>生成你的 AI 学习路线图</h3>
+              <p>回答 6 个问题，得到一份适合当前阶段的学习路径。</p>
+            </div>
+            <a class="button light" href="#route">开始</a>
+          </article>
+          <article class="win">
+            <div>
+              <div class="win-time">30 分钟</div>
+              <h3>改造一个真实任务</h3>
+              <p>把一个重复任务整理成提示词、模板或检查清单。</p>
+            </div>
+            <a class="button light" href="#resources">找资源</a>
+          </article>
+          <article class="win">
+            <div>
+              <div class="win-time">60 分钟</div>
+              <h3>搭建个人 AI 工作台</h3>
+              <p>把常用工具、资料和输出格式组合成自己的工作流。</p>
+            </div>
+            <a class="button light" href="#resources">看主线</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section content-grid">
+        <article class="panel" id="resources">
+          <div class="section-head">
+            <h2>主路线资源</h2>
+            <p>搜索不是第一入口，但在用户明确路线后，资源库要能快速筛出下一步。</p>
+          </div>
+          <div class="resource-tools">
+            <div class="search">搜索资源、工具、模板、项目案例</div>
+            <div class="filters">
+              <span class="filter active">二年级主线</span>
+              <span class="filter">模板</span>
+              <span class="filter">工具</span>
+              <span class="filter">30 分钟内</span>
+              <span class="filter">免费</span>
+            </div>
+          </div>
+          <div class="resource-list">
+            <article class="resource">
+              <div class="resource-head">
+                <h3>AI 工作台搭建清单</h3>
+                <span class="badge">主路线</span>
+              </div>
+              <p class="outcome">产出：搭好你的第一个个人 AI 工作台。</p>
+              <div class="meta">
+                <span><b>适合：</b>AI 小白、职场人士</span>
+                <span><b>解决：</b>工具太多，不知道怎么组合</span>
+                <span><b>推荐理由：</b>先建立稳定入口</span>
+                <span><b>耗时：</b>45 分钟，免费</span>
+              </div>
+            </article>
+            <article class="resource">
+              <div class="resource-head">
+                <h3>高频任务提示词改写法</h3>
+                <span class="badge">主路线</span>
+              </div>
+              <p class="outcome">产出：把一个真实任务改造成可复用提示词。</p>
+              <div class="meta">
+                <span><b>适合：</b>刚开始用 AI 的用户</span>
+                <span><b>解决：</b>提问很泛，结果不可用</span>
+                <span><b>推荐理由：</b>最快看到工作变化</span>
+                <span><b>耗时：</b>25 分钟，免费</span>
+              </div>
+            </article>
+            <article class="resource">
+              <div class="resource-head">
+                <h3>岗位任务 AI 改造复盘模板</h3>
+                <span class="badge">扩展</span>
+              </div>
+              <p class="outcome">产出：一份可展示、可复盘的 AI 使用案例。</p>
+              <div class="meta">
+                <span><b>适合：</b>想沉淀作品的人</span>
+                <span><b>解决：</b>做了但说不清价值</span>
+                <span><b>推荐理由：</b>便于咨询和陪跑复盘</span>
+                <span><b>耗时：</b>40 分钟，免费</span>
+              </div>
+            </article>
+          </div>
+        </article>
+
+        <aside class="panel" id="cases">
+          <div class="section-head">
+            <h2>案例故事</h2>
+            <p>默认匿名，用户授权后展示昵称、职业或作品链接。</p>
+          </div>
+          <div class="case-list">
+            <article class="case">
+              <h3>从资料焦虑到个人工作台</h3>
+              <p>用户原来收藏了大量 AI 工具，但没有固定流程。陪跑后沉淀出资料整理、输出润色和复盘三个固定步骤。</p>
+              <div class="case-metrics">
+                <span>状态：匿名</span>
+                <span>成果：1 个工作台</span>
+                <span>周期：4 周</span>
+              </div>
+            </article>
+            <article class="case">
+              <h3>把一个高频任务改造成小工具</h3>
+              <p>围绕真实任务建立提示词、输入格式和输出检查清单，让 AI 从聊天工具变成稳定助手。</p>
+              <div class="case-metrics">
+                <span>状态：待授权</span>
+                <span>成果：3 个模板</span>
+                <span>周期：1 周</span>
+              </div>
+            </article>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" id="fields">
+        <div class="section-head">
+          <h2>每条资源都要说明清楚</h2>
+          <p>字段不是为了显得专业，而是帮用户判断这条资源是否值得现在打开。</p>
+        </div>
+        <div class="field-grid">
+          <div class="field"><b>适合谁</b><span>年级、用户阶段、使用基础。</span></div>
+          <div class="field"><b>解决什么问题</b><span>对应用户当前卡点。</span></div>
+          <div class="field"><b>最终产出</b><span>工具、模板、项目、复盘或判断框架。</span></div>
+          <div class="field"><b>为什么推荐</b><span>说明它在主路线中的位置。</span></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

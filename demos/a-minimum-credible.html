@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>doai Demo A - 最小可信版本</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1d252c;
+      --muted: #5f6c76;
+      --line: #d8dee4;
+      --soft: #f6f8fa;
+      --paper: #ffffff;
+      --green: #2f7d57;
+      --blue: #2b6cb0;
+      --red: #b84a4a;
+      --yellow: #b7791f;
+      --purple: #6f5aa8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfcfd;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 64px;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      border: 2px solid var(--ink);
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      font-size: 13px;
+      background: #f0f5f1;
+    }
+
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.06fr) minmax(360px, 0.94fr);
+      gap: 44px;
+      align-items: center;
+      padding: 56px 0 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--green);
+      background: #f1f7f3;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 18px 0 16px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 710px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 8px;
+      border: 1px solid var(--ink);
+      font-weight: 700;
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .button.secondary {
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .hero-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .map {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      padding: 24px;
+      box-shadow: 0 18px 50px rgba(31, 41, 55, 0.08);
+    }
+
+    .map-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .map-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .map-tag {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 14px;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .stage:first-of-type {
+      border-top: 0;
+    }
+
+    .num {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .n1 { background: var(--green); }
+    .n2 { background: var(--blue); }
+    .n3 { background: var(--purple); }
+    .n4 { background: var(--yellow); }
+    .n5 { background: var(--red); }
+
+    .stage h3 {
+      margin: -2px 0 2px;
+      font-size: 16px;
+    }
+
+    .stage p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .band {
+      border-top: 1px solid var(--line);
+      padding: 44px 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    .section-title p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .question-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .question {
+      min-height: 134px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .question strong {
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .question span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .route-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .route-table th,
+    .route-table td {
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .route-table th {
+      background: var(--soft);
+      color: #3f4b55;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .route-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .service-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .service {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      background: var(--paper);
+    }
+
+    .service h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .price {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 8px 0;
+    }
+
+    .service p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 34px 0 44px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .service-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .question-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        padding: 0 16px;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .question-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .route-table,
+      .route-table tbody,
+      .route-table tr,
+      .route-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .route-table thead {
+        display: none;
+      }
+
+      .route-table td {
+        border-bottom: 0;
+        padding: 10px 14px;
+      }
+
+      .route-table tr {
+        border-bottom: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="#">
+        <span class="mark">do</span>
+        <span>doai</span>
+      </a>
+      <nav class="links" aria-label="主导航">
+        <a href="#problems">问题入口</a>
+        <a href="#grades">五个年级</a>
+        <a href="#service">首期内测</a>
+        <a href="./b-roadmap-product.html">版本 B</a>
+        <a href="./b2-optimized-roadmap.html">版本 B2</a>
+        <a href="./c-service-validation.html">版本 C</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="shell hero">
+      <div>
+        <span class="eyebrow">开源 AI 学习路线图</span>
+        <h1>从 AI 小白开始，把 AI 用到真实问题里。</h1>
+        <p class="lead">doai 帮你找到适合自己的学习路径，并通过工具、模板和项目，把 AI 能力落到工作与生活场景中。</p>
+        <div class="actions">
+          <a class="button" href="#problems">从我的问题开始</a>
+          <a class="button secondary" href="#grades">查看五个年级</a>
+        </div>
+        <p class="hero-note">版本 A 重点：用最少页面建立可信定位，适合作为 GitHub README 与首个静态首页。</p>
+      </div>
+
+      <aside class="map" aria-label="五个年级路线图">
+        <div class="map-head">
+          <h2 class="map-title">五个年级成长路线</h2>
+          <span class="map-tag">主线优先</span>
+        </div>
+        <div class="stage">
+          <span class="num n1">1</span>
+          <div>
+            <h3>一年级：小试牛刀</h3>
+            <p>会选工具、会用模板，先完成可见的小成果。</p>
+          </div>
+        </div>
+        <div class="stage">
+          <span class="num n2">2</span>
+          <div>
+            <h3>二年级：岗位重构</h3>
+            <p>把 AI 接入真实任务，重构个人工作模式。</p>
+          </div>
+        </div>
+        <div class="stage">
+          <span class="num n3">3</span>
+          <div>
+            <h3>三年级：AI 工程师</h3>
+            <p>用 AI 做项目、搭工作流、组织上下文。</p>
+          </div>
+        </div>
+        <div class="stage">
+          <span class="num n4">4</span>
+          <div>
+            <h3>四年级：组织/行业赋能</h3>
+            <p>面向团队、部门或行业设计 AI 赋能方案。</p>
+          </div>
+        </div>
+        <div class="stage">
+          <span class="num n5">5</span>
+          <div>
+            <h3>五年级：创造新时代</h3>
+            <p>跟踪前沿人物、论文和产业观点，形成判断框架。</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="band" id="problems">
+      <div class="shell">
+        <div class="section-title">
+          <h2>先从你的问题进入</h2>
+          <p>用户不需要一开始理解完整体系，只需要说清楚自己卡在哪里。</p>
+        </div>
+        <div class="question-grid">
+          <a class="question" href="#grades">
+            <strong>我不知道怎么学 AI</strong>
+            <span>进入一年级主线</span>
+          </a>
+          <a class="question" href="#grades">
+            <strong>我收藏了很多资料但用不起来</strong>
+            <span>先筛主路线</span>
+          </a>
+          <a class="question" href="#grades">
+            <strong>我想把 AI 用到工作/生活</strong>
+            <span>进入岗位重构</span>
+          </a>
+          <a class="question" href="#grades">
+            <strong>我想做出一个 AI 项目</strong>
+            <span>进入项目实践</span>
+          </a>
+          <a class="question" href="#grades">
+            <strong>我想长期跟上 AI</strong>
+            <span>建立前沿框架</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="grades">
+      <div class="shell">
+        <div class="section-title">
+          <h2>五个年级，不是资源堆砌</h2>
+          <p>每个年级对应一个阶段成果，每条资源都标注适合谁、解决什么问题和最终产出。</p>
+        </div>
+        <table class="route-table">
+          <thead>
+            <tr>
+              <th>阶段</th>
+              <th>主题</th>
+              <th>阶段成果</th>
+              <th>首批内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>一年级</td>
+              <td>小试牛刀</td>
+              <td>能用 AI 工具完成日常任务。</td>
+              <td>AI 工具推荐、提示词模板、开箱即用功能。</td>
+            </tr>
+            <tr>
+              <td>二年级</td>
+              <td>岗位重构</td>
+              <td>能把 AI 融入真实工作流程。</td>
+              <td>基础概念、工作台 AI、智能体、skill、场景应用。</td>
+            </tr>
+            <tr>
+              <td>三年级</td>
+              <td>AI 工程师</td>
+              <td>能用 AI 完成一个项目或工作流。</td>
+              <td>上下文工程、软件工程、human in the loop。</td>
+            </tr>
+            <tr>
+              <td>四年级</td>
+              <td>组织/行业赋能</td>
+              <td>能设计团队或行业 AI 赋能方案。</td>
+              <td>理论、原理、企业级产品、组织 AI 赋能。</td>
+            </tr>
+            <tr>
+              <td>五年级</td>
+              <td>创造新时代</td>
+              <td>能形成自己的 AI 前沿判断框架。</td>
+              <td>大佬原文、AI 论文、产业观点。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="band" id="service">
+      <div class="shell">
+        <div class="section-title">
+          <h2>2026 年 6-8 月首期内测</h2>
+          <p>先交付价值，再由用户按建议价后付费。名额小，是为了保证每个用户都有真实输出。</p>
+        </div>
+        <div class="service-strip">
+          <article class="service">
+            <h3>AI 学习路线咨询</h3>
+            <div class="price">建议价 99 元</div>
+            <p>限 15 位。交付个人 AI 学习/应用路线图，帮助用户判断从哪里开始、先做什么。</p>
+          </article>
+          <article class="service">
+            <h3>一对一 AI 赋能陪跑</h3>
+            <div class="price">建议价 699 元</div>
+            <p>限 5 位。4 周完成 1 个主项目 + 3 个小工具，按用户真实场景定制。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell footer">
+    doai Demo A：最小可信版本。适合快速发布、快速讲清楚定位与服务。
+  </footer>
+</body>
+</html>
