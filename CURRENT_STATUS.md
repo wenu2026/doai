@@ -8,6 +8,7 @@
 - 首次提交已完成：`4f421ed Initial doai site`。
 - GitHub 远端仓库已创建：`https://github.com/wenu2026/doai`。
 - 本地 `main` 已推送并跟踪 `origin/main`。
+- GitHub Pages 已启用并部署成功：`https://wenu2026.github.io/doai/`。
 
 ## 本次完成
 
@@ -16,6 +17,7 @@
 - 同步更新旧静态数据与资源数量测试断言。
 - 初始化本地 Git 仓库并完成首次提交，准备同步到 GitHub。
 - 通过 GitHub CLI 创建 public 仓库 `wenu2026/doai`，并推送 `main` 分支。
+- 通过 GitHub API 启用 Pages 的 workflow 发布模式，并手动触发首次成功部署。
 
 ## 验证结果
 
@@ -24,15 +26,16 @@
 - 已通过：`npm.cmd run lint`
 - 已通过：`npm.cmd run build`
 - 构建输出已包含 `/resources/g3-vibe-vibe-ai-creation` 静态详情页。
-- GitHub Actions 已触发 `Deploy Next site to GitHub Pages` workflow。
+- 已通过 GitHub Actions 成功部署到 GitHub Pages。
+- 已通过 `curl.exe -I https://wenu2026.github.io/doai/` 确认首页返回 `200 OK`。
 
 ## 未验证风险
 
 - 需在浏览器中手工确认三年级资源列表与资源详情页显示正常。
 - 目前仅加入 Vibe Vibe 首页链接，未强行猜测站内章节 URL。
-- GitHub Pages 线上地址需等待首次 Actions 部署完成后确认。
+- 未在浏览器中进行完整页面交互验收。
 
 ## 下一步
 
 - 如果需要更强的学习路径引导，可以后续为 Vibe Vibe 增加“基础篇”和“进阶篇”的精确章节链接。
-- 确认首次 GitHub Pages 部署结果，并按需配置 giscus 仓库参数。
+- 按需配置 giscus 仓库参数，让资源详情页评论使用 `wenu2026/doai` 的 Discussions。
