@@ -122,5 +122,213 @@
         "url": "https://www.vibevibe.cn/"
       }
     ]
+  },
+  {
+    "id": "g1-seven-day-ai-task-pack",
+    "grade": "一年级：小试牛刀",
+    "title": "一年级：7 天 AI 日常任务包",
+    "type": "自建课程/练习包",
+    "audience": "刚开始用 AI，不确定怎么问、怎么判断答案、怎么把 AI 用到日常任务里的人",
+    "problem": "用户知道 AI 可以聊天，但缺少从问答、改写、总结、表格整理到事实核验的基础练习路径",
+    "reason": "它用 7 个小任务帮助用户建立最基本的 AI 使用习惯：说清目标、给足上下文、指定格式、检查结果",
+    "outcome": "完成 7 个真实小任务，沉淀至少 3 条可复用提示词，并明确一个下周继续使用 AI 的日常任务",
+    "duration": "7 天，每天 20-40 分钟",
+    "pricing": "免费",
+    "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-1-seven-day-ai-task-pack.md",
+    "mainRoute": true,
+    "summary": "一年级主路线资源。每天完成一个真实任务，让 AI 从“能聊天”变成“能帮我做事”。",
+    "details": [
+      "第 1 天让 AI 拆问题，第 2 天改写文字，第 3 天总结资料，第 4 天整理表格。",
+      "第 5 天让 AI 做检查员，第 6 天做 AI 搜索和事实核验，第 7 天沉淀个人 AI 使用清单。",
+      "结业任务要求用户提交原始目标、提示词、AI 第一版输出、追问修改、最终结果和风险检查。"
+    ],
+    "links": [
+      {
+        "label": "完整 Markdown 文档",
+        "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-1-seven-day-ai-task-pack.md"
+      }
+    ]
+  },
+  {
+    "id": "g2-personal-ai-workbench-checklist",
+    "grade": "二年级：岗位重构",
+    "title": "二年级：个人 AI 工作台搭建清单",
+    "type": "自建清单/工作流",
+    "audience": "已经会使用 AI，但还没有把 AI 固定接入工作流程的人",
+    "problem": "每次使用 AI 都从零开始问，提示词、资料、输出格式和复核标准都不稳定",
+    "reason": "它把一个岗位高频任务整理成可重复使用的资料入口、提示词模板、输出格式和复核清单",
+    "outcome": "为一个高频任务搭建个人 AI 工作台，并实际使用 2 次以上",
+    "duration": "90 分钟搭第一版",
+    "pricing": "免费",
+    "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-2-personal-ai-workbench-checklist.md",
+    "mainRoute": true,
+    "summary": "二年级主路线资源。帮助用户把 AI 从临时对话变成每天可复用的岗位工作台。",
+    "details": [
+      "先选一个每周至少出现 2 次、每次耗时 30 分钟以上的高频任务。",
+      "再整理输入材料、固定提示词、输出格式和复核清单。",
+      "最后把工作台放到飞书文档、Notion、语雀、腾讯文档或本地 Markdown 中，每周优化一次。"
+    ],
+    "links": [
+      {
+        "label": "完整 Markdown 文档",
+        "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-2-personal-ai-workbench-checklist.md"
+      }
+    ]
+  },
+  {
+    "id": "g2-role-workflow-review-template",
+    "grade": "二年级：岗位重构",
+    "title": "二年级：岗位流程复盘模板",
+    "type": "自建模板/流程改造",
+    "audience": "想把 AI 接入岗位任务，但不知道从哪里下手的人",
+    "problem": "用户容易泛泛地问“AI 能不能替我工作”，却没有拆清具体任务、流程和人工复核点",
+    "reason": "它帮助用户把一个岗位任务拆成输入、步骤、AI 可参与环节、人工复核点和改造后的新流程",
+    "outcome": "完成一份岗位任务复盘，并产出固定提示词、固定输出格式和验收标准",
+    "duration": "45-60 分钟",
+    "pricing": "免费",
+    "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-2-role-workflow-review-template.md",
+    "mainRoute": false,
+    "summary": "适合二年级用户做岗位 AI 改造前的第一步：先复盘流程，再接入 AI。",
+    "details": [
+      "先写清当前任务服务谁、从哪里开始、以什么成果结束。",
+      "再拆当前流程，判断 AI 适合参与哪一步、人必须负责哪一步。",
+      "最后设计新流程、写固定提示词，并设置效率、质量、使用和风险验收标准。"
+    ],
+    "links": [
+      {
+        "label": "完整 Markdown 文档",
+        "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-2-role-workflow-review-template.md"
+      }
+    ]
+  },
+  {
+    "id": "g3-idea-to-demo-ai-project",
+    "grade": "三年级：AI 工程师",
+    "title": "三年级：从想法到可演示应用",
+    "type": "自建课程/项目实践",
+    "audience": "已经能用 AI 完成日常任务，想把一个想法做成可演示作品的人",
+    "problem": "有想法但不知道怎样拆成需求、页面、示例数据、功能实现和演示脚本",
+    "reason": "它把 AI 项目实践压缩成一个可执行流程：先做最小可演示版本，再逐步补工程化能力",
+    "outcome": "完成一个能演示的应用或工具原型，并说清目标用户、核心流程、边界和风险",
+    "duration": "3-7 天",
+    "pricing": "免费",
+    "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-3-idea-to-demo-ai-project.md",
+    "mainRoute": true,
+    "summary": "三年级主路线资源。帮助用户从一句想法走到一个能展示、能验证的小项目。",
+    "details": [
+      "先把想法写成一句话，再缩小到一个核心流程。",
+      "用需求卡片、页面草图、示例数据和异常输入，让 AI 项目有可检查的标准。",
+      "最后准备演示脚本，说明用户是谁、原来遇到什么问题、工具如何帮他完成任务。"
+    ],
+    "links": [
+      {
+        "label": "完整 Markdown 文档",
+        "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-3-idea-to-demo-ai-project.md"
+      }
+    ]
+  },
+  {
+    "id": "g4-team-ai-enablement-canvas",
+    "grade": "四年级：组织/行业赋能",
+    "title": "四年级：团队 AI 赋能方案画布",
+    "type": "自建画布/团队试点",
+    "audience": "团队负责人、业务骨干，以及正在帮助一个团队引入 AI 的人",
+    "problem": "团队都在零散试 AI，但没有共同方向、责任边界、风险控制和验收标准",
+    "reason": "它把“我们也要用 AI”变成一个范围清楚、责任明确、可以验收的 2 周试点方案",
+    "outcome": "完成一页团队 AI 试点方案，写清业务目标、试点流程、工具边界、风险和验收指标",
+    "duration": "60-90 分钟",
+    "pricing": "免费",
+    "url": "https://github.com/wenu2026/doai/blob/main/docs/team-ai-enablement-canvas.md",
+    "mainRoute": true,
+    "summary": "四年级主路线资源。适合拿去开团队会，把 AI 赋能从想法推进到试点。",
+    "details": [
+      "先选一个团队、一个流程、一个可验证目标，不做全公司大方案。",
+      "按 11 个格子填写试点团队、业务目标、任务边界、输入材料、输出标准、风险和验收指标。",
+      "会后把统一提示词、输入材料要求和输出格式放到团队共享文档，并用一次真实任务跑完整流程。"
+    ],
+    "links": [
+      {
+        "label": "完整 Markdown 文档",
+        "url": "https://github.com/wenu2026/doai/blob/main/docs/team-ai-enablement-canvas.md"
+      }
+    ]
+  },
+  {
+    "id": "g4-organization-ai-use-case-inventory",
+    "grade": "四年级：组织/行业赋能",
+    "title": "四年级：组织 AI 用例盘点表",
+    "type": "自建模板/用例筛选",
+    "audience": "团队负责人、业务骨干、部门助理、项目经理，以及想系统找出 AI 落地场景的人",
+    "problem": "组织里 AI 想法很多，但不知道哪些值得先做、哪些只是听起来很酷",
+    "reason": "它用访谈问题、盘点表和评分规则，帮助团队从一堆想法里筛出 1-3 个优先试点场景",
+    "outcome": "得到一个用例优先级列表，并明确每个候选用例是试点、补资料、暂缓还是不做",
+    "duration": "2 小时左右",
+    "pricing": "免费",
+    "url": "https://github.com/wenu2026/doai/blob/main/docs/organization-ai-use-case-inventory.md",
+    "mainRoute": false,
+    "summary": "用例盘点表回答“先做哪个场景”，团队 AI 赋能方案画布回答“这个场景具体怎么做”。",
+    "details": [
+      "先访谈 3-8 个熟悉业务的人，收集重复、耗时、容易出错、需要整理信息的任务。",
+      "再从高频程度、时间消耗、资料清晰度、AI 适配度、风险可控度和验证清晰度 6 个维度评分。",
+      "最后只选 1-3 个立即试点用例，进入团队 AI 赋能方案画布。"
+    ],
+    "links": [
+      {
+        "label": "完整 Markdown 文档",
+        "url": "https://github.com/wenu2026/doai/blob/main/docs/organization-ai-use-case-inventory.md"
+      }
+    ]
+  },
+  {
+    "id": "g4-ai-pilot-retrospective-template",
+    "grade": "四年级：组织/行业赋能",
+    "title": "四年级：AI 试点复盘模板",
+    "type": "自建模板/试点复盘",
+    "audience": "已经做过一次团队 AI 试点，想判断是否继续、调整或停止的人",
+    "problem": "团队试点结束后只凭感觉判断效果，没有用事实复盘效率、质量、使用率、风险和业务价值",
+    "reason": "它用一页复盘表和评分规则，帮助团队决定继续、调整后继续、暂停或停止",
+    "outcome": "完成一次 60 分钟 AI 试点复盘，得到明确结论和下一步行动",
+    "duration": "60 分钟",
+    "pricing": "免费",
+    "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-4-ai-pilot-retrospective-template.md",
+    "mainRoute": false,
+    "summary": "适合四年级团队试点后使用，让 AI 落地不靠感觉，而靠数据和复盘结论。",
+    "details": [
+      "复盘前收集试点方案、使用记录、耗时对比、输出样例、反馈和风险记录。",
+      "按效率、质量、使用率、风险控制、业务价值和可复制性 6 个维度评分。",
+      "根据得分和风险情况，决定继续、调整后继续、暂停或停止。"
+    ],
+    "links": [
+      {
+        "label": "完整 Markdown 文档",
+        "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-4-ai-pilot-retrospective-template.md"
+      }
+    ]
+  },
+  {
+    "id": "g5-ai-frontier-reading-framework",
+    "grade": "五年级：创造新时代",
+    "title": "五年级：AI 前沿观点阅读框架",
+    "type": "自建框架/前沿判断",
+    "audience": "想长期跟踪 AI 前沿，但不想被热点、排行榜和碎片新闻带着跑的人",
+    "problem": "看了很多 AI 消息，却很难形成自己的判断，也不知道哪些值得行动、哪些只需观察",
+    "reason": "它把每周 AI 阅读压缩成模型能力、产品形态、产业采用、风险治理和个人机会 5 类判断",
+    "outcome": "形成每周 AI 阅读笔记，并能写出一段 150-300 字的前沿判断",
+    "duration": "每周 60-90 分钟",
+    "pricing": "免费",
+    "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-5-ai-frontier-reading-framework.md",
+    "mainRoute": true,
+    "summary": "五年级主路线资源。帮助用户从“收藏很多链接”变成“形成自己的 AI 判断”。",
+    "details": [
+      "每周只看模型能力、产品形态、产业采用、风险治理和个人机会 5 类内容。",
+      "每条内容都记录来源、发布日期、已确认事实、无法确认的地方、影响、限制和下一步。",
+      "结业任务是围绕一个 AI 前沿主题，写一篇包含来源、事实、判断、反方观点、风险和行动建议的短文。"
+    ],
+    "links": [
+      {
+        "label": "完整 Markdown 文档",
+        "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-5-ai-frontier-reading-framework.md"
+      }
+    ]
   }
 ]

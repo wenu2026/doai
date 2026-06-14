@@ -101,11 +101,23 @@ for (const item of resources) {
   }
   assert(item.url, `resource ${item.id ?? "(unknown)"} must provide an original link`);
 }
-assert(resources.length === 4, "data/resources.json should currently contain the four approved third-grade resources");
+assert(resources.length === 12, "data/resources.json should contain the approved resources and self-built course content");
 assert(resources.some((item) => item.id === "g3-easy-vibe"), "Easy-Vibe resource is required");
 assert(resources.some((item) => item.id === "g3-tencent-codebuddy-architect"), "Tencent CodeBuddy resource is required");
 assert(resources.some((item) => item.id === "g3-vibe-coding-core"), "Vibe Coding resource is required");
 assert(resources.some((item) => item.id === "g3-vibe-vibe-ai-creation"), "Vibe Vibe resource is required");
+for (const id of [
+  "g1-seven-day-ai-task-pack",
+  "g2-personal-ai-workbench-checklist",
+  "g2-role-workflow-review-template",
+  "g3-idea-to-demo-ai-project",
+  "g4-team-ai-enablement-canvas",
+  "g4-organization-ai-use-case-inventory",
+  "g4-ai-pilot-retrospective-template",
+  "g5-ai-frontier-reading-framework",
+]) {
+  assert(resources.some((item) => item.id === id), `self-built resource is required: ${id}`);
+}
 
 const app = read("assets/app.js");
 assert(app.includes("resource-grade-link"), "resource page must render grade menu links");
@@ -113,15 +125,8 @@ assert(!app.includes("resource-menu-link"), "resource page must not render a sep
 assert(app.includes("redirectFilePreviewToLocalServer"), "app.js must redirect file previews to the local HTTP server");
 assert(app.includes("http://127.0.0.1:8000/"), "file preview redirect must target the local HTTP server");
 
-for (const deletedTitle of [
-  "高频任务提示词模板",
-  "个人 AI 工作台搭建清单",
-  "上下文工程入门项目",
-  "团队 AI 赋能方案画布",
-  "AI 前沿观点阅读框架",
-]) {
-  assert(!resources.some((item) => item.title === deletedTitle), `deleted resource still exists: ${deletedTitle}`);
-}
+assert(!resources.some((item) => item.title === "高频任务提示词模板"), "deleted placeholder resource still exists");
+assert(!resources.some((item) => item.title === "上下文工程入门项目"), "deleted placeholder resource still exists");
 
 const workflow = read(".github/workflows/pages.yml");
 assert(workflow.includes("actions/deploy-pages"), "Pages workflow must deploy to GitHub Pages");

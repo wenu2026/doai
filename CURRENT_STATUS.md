@@ -1,5 +1,35 @@
 # CURRENT_STATUS
 
+## 2026-06-14 课程内容接入与部署准备
+
+### 当前状态
+- 已将 8 个用户版自建内容接入 `src/content/resources.json`，覆盖一年级到五年级资源库。
+- 已同步 `data/resources.json`，保持旧静态资源页和 Next 资源数据一致。
+- 已更新 `tests/check-site.mjs`，资源数量断言从 4 条调整为 12 条，并校验 8 个自建资源 ID。
+
+### 本次完成
+- 一年级新增主路线资源：7 天 AI 日常任务包。
+- 二年级新增主路线资源：个人 AI 工作台搭建清单；扩展资源：岗位流程复盘模板。
+- 三年级新增主路线资源：从想法到可演示应用。
+- 四年级新增主路线资源：团队 AI 赋能方案画布；扩展资源：组织 AI 用例盘点表、AI 试点复盘模板。
+- 五年级新增主路线资源：AI 前沿观点阅读框架。
+
+### 发布路径
+- 本地构建命令：`npm.cmd run build`。
+- 线上发布路径：推送到 `main` 或 `master` 后由 `.github/workflows/pages.yml` 发布到 GitHub Pages。
+- 回滚策略：如部署后发现问题，回退到上一个已确认可用 commit 并重新推送触发 Pages 部署。
+
+### 验证结果
+- `npm.cmd run test` 已通过。
+- `npm.cmd run typecheck` 已通过。
+- `npm.cmd run lint` 已通过。
+- `npm.cmd run build` 已通过，静态页面生成完成。
+- 已抽查 `out/resources/g1-seven-day-ai-task-pack/index.html`、`out/resources/g4-team-ai-enablement-canvas/index.html`、`out/resources/g5-ai-frontier-reading-framework/index.html`，确认标题和完整 Markdown 文档入口已生成。
+
+### 未验证风险
+- 尚未在浏览器中人工检查各年级资源列表和详情页排版。
+- 资源详情页当前显示导读和完整 Markdown 链接，尚未把 Markdown 全文内嵌渲染到站内。
+
 ## 2026-06-14 五个年级课程内容
 
 ### 当前状态
