@@ -1,5 +1,27 @@
 # CURRENT_STATUS
 
+## 2026-06-14 课程资源线上部署
+
+### 当前状态
+- 课程资源接入提交 `42923be` 已推送到远端 `main`，GitHub Pages 已发布新资源页面。
+- 线上路径使用 `/doai/` base path，新增资源详情页已能访问。
+
+### 本次完成
+- 已将当前分支提交推送到 `origin/main`，触发 GitHub Pages 工作流。
+- 已在线抽查一年级、四年级、五年级新增资源详情页。
+
+### 验证结果
+- `https://wenu2026.github.io/doai/resources/g1-seven-day-ai-task-pack/` 已返回新资源页面内容。
+- `https://wenu2026.github.io/doai/resources/g4-team-ai-enablement-canvas/` 返回 `200 OK`，页面标题为“四年级：团队 AI 赋能方案画布”。
+- `https://wenu2026.github.io/doai/resources/g5-ai-frontier-reading-framework/` 返回 `200 OK`。
+
+### 未验证风险
+- 尚未用真实浏览器人工检查移动端和桌面端视觉排版。
+- 资源详情页仍采用“站内导读 + GitHub Markdown 原文链接”的形态，未做站内 Markdown 全文渲染。
+
+### 下一步
+- 人工打开资源库列表页，检查 12 条资源的筛选、标题、年级标签和详情页跳转是否符合预期。
+
 ## 2026-06-14 课程内容接入与部署准备
 
 ### 当前状态
