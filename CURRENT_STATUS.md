@@ -1,5 +1,29 @@
 # CURRENT_STATUS
 
+## 2026-06-14 资源规划
+
+### 当前状态
+- 已完成 1-5 年级资源体系规划，新增 `docs/resource-plan-grades-1-5.md`。
+- 新增 `PROJECT_CONTEXT.md`，明确 doai 的项目定位、五个年级目标和资源库原则。
+- 本次只做规划文档，不直接修改 `src/content/resources.json` 或 `data/resources.json`，避免把尚未确认的候选资源直接上架。
+
+### 本次完成
+- 梳理每个年级应放的主路线资源、扩展资源、资源内容和最优获取路径。
+- 明确首批上架优先级：先做自建主路线资源，再补外部权威资源。
+- 明确不建议首批放入的资源类型：零散 Prompt 大合集、过时模型排行榜、纯营销文章、高价闭源课程、缺少导读的论文清单。
+
+### 验证结果
+- 已根据项目现有 README、资源结构和年级目标制定规划。
+- 已联网核对主要外部资源入口，包括 Datawhale、Microsoft、OpenAI、Hugging Face、Anthropic、State of AI、Kimi、千问、秘塔、扣子等。
+
+### 未验证风险
+- 外部资源链接可能随产品改版变化，正式上架前仍需逐条打开确认。
+- 自建主路线资源尚未写成可展示页面或 `resources.json` 条目。
+
+### 下一步
+- 将第一批 15 条资源拆成正式 `resources.json` 条目。
+- 优先制作一年级“7 天 AI 日常任务包”、二年级“个人 AI 工作台搭建清单”、四年级“团队 AI 赋能方案画布”、五年级“AI 前沿观点阅读框架”。
+
 ## 当前状态
 
 - 三年级资源库已包含 Easy-Vibe、腾讯 CodeBuddy、Vibe Coding 核心理念和 Vibe Vibe 四个资源。
