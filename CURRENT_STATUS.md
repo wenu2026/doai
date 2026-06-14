@@ -1,5 +1,32 @@
 # CURRENT_STATUS
 
+## 2026-06-14 五个年级课程内容
+
+### 当前状态
+- 已新增 6 个可直接使用的课程/模板文档，覆盖一年级到五年级的主线练习和结业型产出。
+- 本次仍只维护 `docs/` 内容源，未改动前端页面和资源 JSON。
+
+### 本次完成
+- 一年级：新增 `docs/grade-1-seven-day-ai-task-pack.md`，提供 7 天 AI 日常任务包。
+- 二年级：新增 `docs/grade-2-personal-ai-workbench-checklist.md`，提供个人 AI 工作台搭建清单。
+- 二年级：新增 `docs/grade-2-role-workflow-review-template.md`，提供岗位流程复盘模板。
+- 三年级：新增 `docs/grade-3-idea-to-demo-ai-project.md`，提供从想法到可演示应用的项目实践流程。
+- 四年级：新增 `docs/grade-4-ai-pilot-retrospective-template.md`，提供 AI 试点复盘模板。
+- 五年级：新增 `docs/grade-5-ai-frontier-reading-framework.md`，提供 AI 前沿观点阅读框架。
+- 更新 `PROJECT_CONTEXT.md`，记录这些课程内容源。
+
+### 验证结果
+- 已按“适合谁、你会得到什么、步骤、模板、验收标准”的用户视角组织内容。
+- 每份文档都包含可复制模板或结业任务，用户读完知道下一步怎么做。
+
+### 未验证风险
+- 尚未接入资源库详情页或 `resources.json`。
+- 尚未在浏览器中检查 Markdown 转网页后的排版。
+
+### 下一步
+- 将这些文档转成资源库条目，并按年级挂到对应资源列表。
+- 如果需要正式上线，可先把 6 个文档做成静态详情页，再逐步补评论和案例。
+
 ## 2026-06-14 四年级自建资源
 
 ### 当前状态
