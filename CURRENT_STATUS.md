@@ -1,5 +1,33 @@
 # CURRENT_STATUS
 
+## 2026-06-17 三年级 Codex AI 编程工作流资源接入
+
+### 当前状态
+- 已将 `codex-workflow-visual-summary.html` 的内容整理为三年级 AI 编程资源。
+- 已新增项目风格静态展示页 `public/resources/codex-ai-programming-workflow-summary.html`，用于替代原始独立 HTML 的视觉样式。
+- 已新增 Markdown 内容源 `docs/grade-3-codex-ai-programming-workflow.md`，方便后续维护和 GitHub 阅读。
+- 已将资源条目接入 `src/content/resources.json`，并同步到 `data/resources.json`。
+
+### 本次完成
+- 三年级新增扩展资源：Codex AI 编程工作流总览。
+- 资源详情页会显示用户导读，并通过“打开原始资源”进入项目风格 HTML 展示页。
+- 已更新资源库测试断言，资源总数从 12 条调整为 13 条。
+
+### 验证结果
+- `npm.cmd run test` 已通过。
+- `npm.cmd run typecheck` 已通过。
+- `npm.cmd run lint` 已通过。
+- `npm.cmd run build` 已通过，静态页面生成数量为 21。
+- 已抽查 `out/resources/g3-codex-ai-programming-workflow/index.html`，确认资源详情页标题已生成。
+- 已抽查 `out/resources/codex-ai-programming-workflow-summary.html`，确认项目风格 HTML 展示页已导出。
+
+### 未验证风险
+- 尚未在真实浏览器中检查新增静态 HTML 的桌面端和移动端视觉效果。
+- 该静态 HTML 使用 `/doai/` 作为线上导航路径，本地直接打开时导航会指向线上 base path。
+
+### 下一步
+- 人工打开新增资源详情页和 HTML 展示页，检查桌面端与移动端视觉效果。
+
 ## 2026-06-14 课程资源线上部署
 
 ### 当前状态
