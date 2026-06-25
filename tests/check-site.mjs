@@ -101,7 +101,7 @@ for (const item of resources) {
   }
   assert(item.url, `resource ${item.id ?? "(unknown)"} must provide an original link`);
 }
-assert(resources.length === 12, "data/resources.json should contain the approved resources and self-built course content");
+assert(resources.length === 13, "data/resources.json should contain the approved resources and self-built course content");
 assert(resources.some((item) => item.id === "g3-easy-vibe"), "Easy-Vibe resource is required");
 assert(resources.some((item) => item.id === "g3-tencent-codebuddy-architect"), "Tencent CodeBuddy resource is required");
 assert(resources.some((item) => item.id === "g3-vibe-coding-core"), "Vibe Coding resource is required");
@@ -110,6 +110,7 @@ for (const id of [
   "g1-seven-day-ai-task-pack",
   "g2-personal-ai-workbench-checklist",
   "g2-role-workflow-review-template",
+  "g2-quant-for-beginners",
   "g3-idea-to-demo-ai-project",
   "g4-team-ai-enablement-canvas",
   "g4-organization-ai-use-case-inventory",
