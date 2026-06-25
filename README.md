@@ -129,9 +129,15 @@ NEXT_PUBLIC_BASE_PATH: /doai
 
 自定义域名通常应设为空。
 
-## 腾讯云访问地址
+## 线上访问地址
 
-腾讯云 Lighthouse 部署使用站点根路径，当前线上地址为：
+当前对外使用 GitHub Pages 免费地址：
+
+```text
+https://wenu2026.github.io/doai/
+```
+
+腾讯云 Lighthouse 继续作为备用部署目标，使用站点根路径：
 
 ```text
 http://124.221.141.173/
@@ -141,10 +147,4 @@ http://124.221.141.173/
 
 ```text
 124.221.141.173
-```
-
-如果不购买域名，可以继续使用腾讯云 IP，或使用免费的 GitHub Pages 地址：
-
-```text
-https://wenu2026.github.io/doai/
 ```

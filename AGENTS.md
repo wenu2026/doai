@@ -44,7 +44,13 @@ git commit -m "Describe the change"
 git push origin main
 ```
 
-Pushing to `main` triggers GitHub Actions deployment to Tencent Cloud:
+Pushing to `main` triggers GitHub Actions deployment. The primary public URL is GitHub Pages:
+
+```text
+https://wenu2026.github.io/doai/
+```
+
+Tencent Cloud remains available as a backup deployment target:
 
 ```text
 http://124.221.141.173/
@@ -94,7 +100,7 @@ Do not copy one Mac's private SSH key to another computer. Each computer should 
 - If deployment fails, check GitHub Actions logs first.
 - If the website is unreachable, check the Tencent Cloud container logs.
 - If the project later uses a custom domain, the domain must be owned and its DNS should point to `124.221.141.173`.
-- If no domain will be purchased, keep using the Tencent Cloud IP or the free GitHub Pages URL.
+- If no domain will be purchased, use the free GitHub Pages URL as the primary public address.
 
 ## Codex Working Rules
 
