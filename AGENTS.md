@@ -47,7 +47,7 @@ git push origin main
 Pushing to `main` triggers GitHub Actions deployment to Tencent Cloud:
 
 ```text
-http://www.doai.com/
+http://124.221.141.173/
 ```
 
 ## Avoiding Conflicts Across Two Computers
@@ -93,8 +93,8 @@ Do not copy one Mac's private SSH key to another computer. Each computer should 
 - Large redesigns should use a branch and merge after confirmation.
 - If deployment fails, check GitHub Actions logs first.
 - If the website is unreachable, check the Tencent Cloud container logs.
-- The Tencent Cloud server IP is `124.221.141.173`; DNS should point `www.doai.com` to this IP.
-- The next production hardening step is enabling HTTPS.
+- If the project later uses a custom domain, the domain must be owned and its DNS should point to `124.221.141.173`.
+- If no domain will be purchased, keep using the Tencent Cloud IP or the free GitHub Pages URL.
 
 ## Codex Working Rules
 
