@@ -128,3 +128,19 @@ NEXT_PUBLIC_BASE_PATH: /doai
 ```
 
 自定义域名通常应设为空。
+
+## 腾讯云域名
+
+腾讯云 Lighthouse 部署使用站点根路径，线上主域名为：
+
+```text
+http://www.doai.com/
+```
+
+DNS 需要将 `www.doai.com` 的 A 记录指向腾讯云服务器：
+
+```text
+124.221.141.173
+```
+
+服务器上的 nginx 会把 `doai.com`、服务器 IP 和其他默认 HTTP 访问重定向到 `www.doai.com`。
