@@ -48,16 +48,16 @@ jobs:
           mkdir -p ~/.ssh
           printf '%s\n' "${{ secrets.TENCENT_SSH_KEY }}" > ~/.ssh/tencent_lighthouse
           chmod 600 ~/.ssh/tencent_lighthouse
-          ssh-keyscan -p "${{ secrets.TENCENT_PORT }}" -H "${{ secrets.TENCENT_HOST }}" >> ~/.ssh/known_hosts
+          ssh-keyscan -T 10 -p "${{ secrets.TENCENT_PORT }}" -H "${{ secrets.TENCENT_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
 
       - name: Upload release to server
         run: |
-          ssh -i ~/.ssh/tencent_lighthouse -p "${{ secrets.TENCENT_PORT }}" "${{ secrets.TENCENT_USER }}@${{ secrets.TENCENT_HOST }}" "mkdir -p /home/ubuntu/apps/doai"
-          scp -i ~/.ssh/tencent_lighthouse -P "${{ secrets.TENCENT_PORT }}" doai-release.tgz "${{ secrets.TENCENT_USER }}@${{ secrets.TENCENT_HOST }}:/home/ubuntu/apps/doai/doai-release.tgz"
+          ssh -i ~/.ssh/tencent_lighthouse -o StrictHostKeyChecking=accept-new -p "${{ secrets.TENCENT_PORT }}" "${{ secrets.TENCENT_USER }}@${{ secrets.TENCENT_HOST }}" "mkdir -p /home/ubuntu/apps/doai"
+          scp -i ~/.ssh/tencent_lighthouse -o StrictHostKeyChecking=accept-new -P "${{ secrets.TENCENT_PORT }}" doai-release.tgz "${{ secrets.TENCENT_USER }}@${{ secrets.TENCENT_HOST }}:/home/ubuntu/apps/doai/doai-release.tgz"
 
       - name: Restart container
         run: |
-          ssh -i ~/.ssh/tencent_lighthouse -p "${{ secrets.TENCENT_PORT }}" "${{ secrets.TENCENT_USER }}@${{ secrets.TENCENT_HOST }}" <<'EOF'
+          ssh -i ~/.ssh/tencent_lighthouse -o StrictHostKeyChecking=accept-new -p "${{ secrets.TENCENT_PORT }}" "${{ secrets.TENCENT_USER }}@${{ secrets.TENCENT_HOST }}" <<'EOF'
           set -eu
           cd /home/ubuntu/apps/doai
           tar -xzf doai-release.tgz
