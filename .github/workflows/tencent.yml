@@ -61,6 +61,6 @@ jobs:
           set -eu
           cd /home/ubuntu/apps/doai
           tar -xzf doai-release.tgz
-          sudo docker compose up -d
+          sudo docker compose up -d --force-recreate
           sudo docker image prune -f
           EOF
