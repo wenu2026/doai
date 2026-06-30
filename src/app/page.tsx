@@ -62,7 +62,7 @@ export default function HomePage() {
       <section className="border-b border-border bg-background">
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-10 md:py-14 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12">
           <div className="flex flex-col gap-6">
-            <Badge variant="sage" className="w-fit">
+            <Badge variant="primary" className="w-fit">
               开源 AI 学习路线图
             </Badge>
             <div className="space-y-4">

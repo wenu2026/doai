@@ -12,6 +12,22 @@
 
 根目录旧版 `PROJECT_CONTEXT.md` 和 `CURRENT_STATUS.md` 只作为历史参考；新任务优先使用 `docs/` 下的标准文档。
 
+## 项目协作原则
+
+本项目按三处协作管理：
+
+1. GitHub 是唯一源码事实源。
+2. 腾讯云只作为部署目标。
+3. Codex 是开发协作助手。
+
+主仓库：
+
+```text
+https://github.com/wenu2026/doai
+```
+
+不要把腾讯云服务器当作源码编辑位置。服务器只运行由 GitHub Actions 上传或部署的构建产物。
+
 ## 项目命令
 
 ```bash
@@ -22,6 +38,46 @@ npm run lint
 npm run test
 npm run build
 npm run generate:qr
+```
+
+## 标准本地流程
+
+新电脑初始化：
+
+```bash
+git clone https://github.com/wenu2026/doai.git
+cd doai
+npm install
+npm run dev
+```
+
+开始工作前：
+
+```bash
+git pull origin main
+```
+
+改动后：
+
+```bash
+npm run test
+npm run build
+git status
+git add .
+git commit -m "描述本次变更"
+git push origin main
+```
+
+推送到 `main` 会触发 GitHub Actions 部署。主要公开访问地址是 GitHub Pages：
+
+```text
+https://wenu2026.github.io/doai/
+```
+
+腾讯云作为备用部署目标：
+
+```text
+http://124.221.141.173/
 ```
 
 ## 项目目录结构
@@ -47,6 +103,9 @@ npm run generate:qr
 - 自测功能当前只写浏览器 `localStorage`，不要在未确认需求前新增服务端存储。
 - 留资入口由环境变量或默认链接承接，项目只展示入口。
 - 发布到 GitHub Pages 时生产 base path 为 `/doai`。
+- 发布到腾讯云根路径时，不使用 `/doai` base path。
+- 大型改版使用分支，验收后再通过 GitHub 合并。
+- 如果部署失败，先看 GitHub Actions 日志；如果网站不可访问，再检查腾讯云容器日志。
 
 ## 验证要求
 
@@ -62,4 +121,5 @@ npm run generate:qr
 - 不要在未确认需求前引入数据库、登录、支付或后台管理系统。
 - 不要只更新 `src/content/resources.json` 而忘记旧静态站镜像 `data/resources.json`。
 - 不要把内部过程解释写进用户可见页面文案。
-
+- 不要直接在腾讯云服务器上修改源码。
+- 不要把一台电脑的 SSH 私钥复制到另一台电脑；每台电脑应生成自己的 SSH key，只绑定公钥。

@@ -13,7 +13,7 @@ export default function ServicesPage() {
 
       <div className="grid gap-6 md:grid-cols-2 stagger-1">
         <div className="group rounded-2xl border border-border bg-surface p-7 shadow-sm transition-all hover:-translate-y-2 hover:shadow-lg hover:border-primary/30">
-          <Badge variant="sage" className="mb-4">限 15 位</Badge>
+          <Badge variant="primary" className="mb-4">限 15 位</Badge>
           <h2 className="text-2xl font-extrabold mb-3">AI 学习路线咨询</h2>
           <p className="text-3xl font-black text-primary mb-5">建议价 99 元</p>
           <p className="text-muted-foreground leading-relaxed">
