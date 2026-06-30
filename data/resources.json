@@ -95,6 +95,32 @@
     ]
   },
   {
+    "id": "g3-codex-ai-programming-workflow",
+    "grade": "三年级：AI 工程师",
+    "title": "Codex AI 编程工作流总览",
+    "type": "自建图示/工作流",
+    "audience": "已经开始用 Codex 或类似 AI 编程工具做项目，想把上下文、规则、变更和状态管理起来的人",
+    "problem": "会让 AI 写代码，但项目一复杂就容易反复解释背景、遗忘当前状态、混淆长期事实和临时任务",
+    "reason": "它把 AI 编程中的文件化上下文、两级 AGENTS.md、研发流程、会话拆分和状态更新放到一张可视化工作流里，适合三年级补齐工程化协作习惯",
+    "outcome": "能为自己的 AI 编程项目建立 PROJECT_DOC、CURRENT_STATUS、changes 和 AGENTS.md 的基本协作框架，让 Codex 每次从更可信的上下文开始工作",
+    "duration": "20-40 分钟",
+    "pricing": "免费",
+    "url": "https://wenu2026.github.io/doai/resources/codex-ai-programming-workflow-summary.html",
+    "mainRoute": false,
+    "summary": "三年级 AI 编程工作流补充资源。它不教某个工具按钮，而是教用户如何让 Codex 在项目里持续、稳定、可交接地工作。",
+    "details": [
+      "先看可视化总览，理解“长期事实放文件，当前阶段由会话推进”的核心原则。",
+      "再对照自己的项目，补齐 PROJECT_DOC.md、CURRENT_STATUS.md、docs/changes/*.md 和项目 AGENTS.md。",
+      "最后用一个小需求跑完整闭环：读状态、确认变更、实现、验证、更新状态、提交。"
+    ],
+    "links": [
+      {
+        "label": "完整 Markdown 文档",
+        "url": "https://github.com/wenu2026/doai/blob/main/docs/grade-3-codex-ai-programming-workflow.md"
+      }
+    ]
+  },
+  {
     "id": "g3-vibe-vibe-ai-creation",
     "grade": "三年级：AI 工程师",
     "title": "Vibe Vibe：从想法到作品的 AI 创造课程",

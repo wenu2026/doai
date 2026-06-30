@@ -75,8 +75,10 @@ assert(resources.includes("Resource"), "resources module must expose a Resource 
 assert(resources.includes("getResources"), "resources module must expose getResources()");
 
 const resourcesPage = read("src/app/resources/page.tsx");
-assert(resourcesPage.includes("GiscusComments"), "resources page must render comments under content");
-assert(resourcesPage.includes("getResources"), "resources page must read resource data");
+assert(!resourcesPage.includes("GiscusComments"), "resources page should not render comments");
+assert(resourcesPage.includes("getResourcesByGrade"), "resources page must read resource data");
+assert(resourcesPage.includes("hiddenResourceIds"), "resources page must hide only selected resource cards");
+assert(resourcesPage.includes("gradeCatalog"), "resources page must keep grade route entries");
 
 const globals = read("src/app/globals.css");
 assert(globals.includes("--color-skyline"), "global theme must define a brighter skyline accent");
