@@ -68,7 +68,7 @@ export default function RootLayout({
               </span>
               <span>doai：做 AI，真正用起来。</span>
             </div>
-            <span>内容在 GitHub 维护，评论由 giscus / GitHub Discussions 支持。</span>
+            <span>内容由 GitHub 文件维护，页面保持轻量阅读体验。</span>
           </div>
         </footer>
       </body>

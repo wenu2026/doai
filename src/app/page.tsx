@@ -11,7 +11,6 @@ import {
   Telescope,
   WandSparkles,
 } from "lucide-react";
-import { LeadCapture } from "@/components/lead-capture";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { getResources, gradeCatalog } from "@/lib/resources";
@@ -55,8 +54,6 @@ const outcomes = [
 
 export default function HomePage() {
   const resources = getResources();
-  const mainRouteResources = resources.filter((resource) => resource.mainRoute);
-  const featuredResources = (mainRouteResources.length >= 4 ? mainRouteResources : resources).slice(0, 4);
 
   return (
     <main className="overflow-x-hidden">
@@ -84,7 +81,7 @@ export default function HomePage() {
               </ButtonLink>
             </div>
             <div className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-3">
-              {["五个年级路线", `${resources.length} 条首批资源`, "咨询/陪跑留资"].map((item) => (
+              {["五个年级路线", `${resources.length} 条首批资源`].map((item) => (
                 <div key={item} className="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2">
                   <CheckCircle2 className="h-4 w-4 shrink-0 text-sage" />
                   <span>{item}</span>
@@ -212,51 +209,6 @@ export default function HomePage() {
             </div>
           ))}
         </div>
-      </section>
-
-      <section className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:py-12 lg:grid-cols-[1fr_380px]">
-        <div className="space-y-6">
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <Badge variant="warm" className="mb-3">
-                精选资源
-              </Badge>
-              <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">首页只放入口，全量内容进资源库</h2>
-            </div>
-            <ButtonLink href="/resources" variant="secondary" size="sm">
-              查看全部 {resources.length} 条
-              <ArrowRight className="h-4 w-4" />
-            </ButtonLink>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {featuredResources.map((resource) => (
-              <article
-                key={resource.id}
-                className="flex min-h-56 flex-col rounded-lg border border-border bg-surface p-5 shadow-sm transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-md"
-              >
-                <div className="mb-3 flex flex-wrap gap-2">
-                  <Badge variant={resource.mainRoute ? "primary" : "outline"}>
-                    {resource.mainRoute ? "主路线" : "扩展资源"}
-                  </Badge>
-                  <Badge variant="outline">{resource.type}</Badge>
-                </div>
-                <h3 className="text-lg font-bold leading-7">{resource.title}</h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-7 text-muted-foreground">
-                  {resource.summary || resource.reason}
-                </p>
-                <div className="mt-auto pt-5">
-                  <ButtonLink href={`/resources/${resource.id}`} variant="secondary" size="sm">
-                    查看使用建议
-                    <ArrowRight className="h-4 w-4" />
-                  </ButtonLink>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-        <aside className="self-start lg:sticky lg:top-20">
-          <LeadCapture />
-        </aside>
       </section>
     </main>
   );

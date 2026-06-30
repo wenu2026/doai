@@ -1,4 +1,3 @@
-import { GiscusComments } from "@/components/giscus-comments";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -33,7 +32,6 @@ export default function CasesPage() {
           </Card>
         ))}
       </div>
-      <GiscusComments />
     </main>
   );
 }
