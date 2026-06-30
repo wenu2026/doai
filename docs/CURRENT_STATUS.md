@@ -1,48 +1,57 @@
 # 当前状态
 
-最后更新：2026-06-17
+最后更新：2026-06-30
 
 ## 当前状态
 
 - 当前工作目录是 `D:\PMP\doai`。
-- 当前 Git 分支是 `ui-redesign`。
-- 本次开始前工作区已有未提交的 UI/源码改动，涉及 `src/app/`、`src/components/`、`assets/styles.css` 等文件；本次文档补齐不改这些业务代码文件。
-- 项目是 Next.js App Router 静态导出应用，同时保留旧静态 HTML 站点骨架。
-- 当前资源数据源 `src/content/resources.json` 有 13 条资源。
-- `data/resources.json` 作为旧静态站兼容数据源存在。
-- GitHub Pages workflow 位于 `.github/workflows/pages.yml`，构建时使用 `/doai` base path。
-- 当前 `docs/` 已有课程内容和资源规划文档，本次补齐项目上下文文档体系。
+- 项目是 Next.js App Router 静态导出应用，生产 base path 为 `/doai`。
+- 本次已完成首页 UI/UX 优化：减少首页全量资源铺陈，改为路线入口、问题入口、路线速览、精选资源和留资入口。
+- 首页资源预览从全量 13 条收敛为 4 条精选资源，完整资源仍保留在 `/resources`。
+- 移动端导航从不可交互的菜单占位改为可点击的换行导航。
+- 已新增 `public/favicon.svg`，本地 Playwright 复测未再出现 favicon 404。
 
 ## 已完成
 
-- 创建 `docs/PROJECT_CONTEXT.md`，记录项目定位、产品形态、内容资产、技术与发布上下文、已知边界。
-- 创建 `docs/PROJECT_DOC.md`，采用 PRD + 技术文档合并格式，记录页面、功能、数据结构、技术栈、命令、构建、环境变量、验证方式和发布路径。
-- 创建 `docs/CURRENT_STATUS.md`，记录当前状态、已完成、当前问题、未验证风险、下一步。
-- 创建 `docs/CHANGELOG.md`，从 2026-06-17 开始记录文档体系补齐。
-- 创建项目根目录 `AGENTS.md`，只写本项目上下文入口、命令、目录结构、开发约定、验证要求和项目禁止事项。
+- 优化 `src/app/page.tsx`：
+  - 首屏改为明确主行动、项目指标和五年级路线入口。
+  - 问题入口改为紧凑卡片，移动端两列展示。
+  - 路线说明改为速览卡片，减少重复长表格。
+  - 精选资源区只展示 4 条主路线资源，并保留“查看全部 13 条”入口。
+  - 留资组件保留在页面末段，桌面端维持 sticky 侧栏。
+- 优化 `src/app/layout.tsx`：
+  - 移除移动端不可用菜单按钮。
+  - 增加移动端可点击导航。
+  - 配置 favicon。
+- 新增 `public/favicon.svg`。
+- 使用 Playwright CLI 完成首页桌面端和移动端复测。
+
+## 验证结果
+
+- `npm run typecheck`：通过。
+- `npm run lint`：通过。
+- `npm run test`：通过，`next app checks passed`，`site skeleton checks passed`。
+- `npm run build`：通过，静态生成 21 个页面。
+- Playwright 桌面端 `1440x900`：
+  - 优化前首页高度约 `5429px`。
+  - 优化后首页高度约 `2524px`。
+  - 页面级和元素级横向溢出为 `0`。
+  - 控制台错误为 `0`。
+- Playwright 移动端 `390x844`：
+  - 优化前首页高度约 `8759px`。
+  - 优化后首页高度约 `5713px`。
+  - 页面级和元素级横向溢出为 `0`。
+  - 控制台错误为 `0`。
+- 截图已保存到 `output/playwright/`，用于本次本地验收参考。
 
 ## 当前问题
 
-- 根目录旧文档 `PROJECT_CONTEXT.md` 和 `CURRENT_STATUS.md` 仍存在，新的标准文档已放到 `docs/` 下；后续应以 `docs/` 为入口。
-- README、旧 HTML、部分源码注释或字符串在 PowerShell 输出中出现过编码显示异常；本次未修改业务代码或旧文案。
-- giscus 依赖环境变量和 GitHub Discussions 配置，当前仅确认代码支持，未确认线上实际可评论。
-- 咨询/陪跑留资入口默认指向 GitHub Discussions，真实业务承接表单或企微活码待确认。
-- 当前分支已有未提交的 UI/源码改动，本次未判断这些改动是否可发布。
-
-## 未验证风险
-
-- 未在浏览器中打开页面检查桌面端和移动端视觉表现。
-- 未验证当前线上 GitHub Pages 内容是否等于当前本地分支。
-- 未验证 giscus 在生产环境是否已完成仓库、分类、App 安装和权限配置。
-- 未验证 `NEXT_PUBLIC_LEAD_FORM_URL` 是否已替换为正式留资入口。
-- 未验证旧静态站 HTML 是否仍需要继续维护。
-- 未验证 `src/content/resources.json` 与 `data/resources.json` 是否在所有字段上完全一致，只确认二者都存在并由测试覆盖关键资源。
+- 当前工作区在本次开始前已有多处未提交 UI/源码改动，涉及 `assets/styles.css`、多个页面和 UI 组件；本次未回退这些已有改动。
+- `output/playwright/` 和 `.playwright-cli/` 是本次 Playwright 验证产物，默认不作为业务代码提交。
+- giscus、正式留资入口和线上 GitHub Pages 当前状态仍未在生产环境验证。
 
 ## 下一步
 
-- 运行 `npm run test`，确认文档补齐没有破坏现有结构校验。
-- 如需要发布，先处理或确认当前分支已有 UI/源码改动，再执行完整验证：`npm run typecheck`、`npm run lint`、`npm run test`、`npm run build`。
-- 确认 giscus 的 GitHub Discussions 配置和生产环境变量。
-- 确认正式留资入口，并按需更新 `.env` 或部署环境变量。
-- 之后新增产品需求时，在 `docs/changes/` 下先写需求变更文档，再改产品或代码。
-
+- 如需发布，先确认当前分支已有 UI/源码改动是否全部属于本次发布范围。
+- 发布前建议再次执行 `npm run typecheck`、`npm run lint`、`npm run test`、`npm run build`。
+- 发布后在 GitHub Pages 线上地址复测首页、资源库、至少一个资源详情页、移动端导航和留资入口。
