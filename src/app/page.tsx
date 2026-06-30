@@ -54,6 +54,8 @@ const outcomes = [
 
 export default function HomePage() {
   const resources = getResources();
+  const mainRouteResources = resources.filter((resource) => resource.mainRoute);
+  const featuredResources = (mainRouteResources.length >= 4 ? mainRouteResources : resources).slice(0, 4);
 
   return (
     <main className="overflow-x-hidden">
@@ -208,6 +210,47 @@ export default function HomePage() {
               <p className="mt-2 text-sm leading-7 text-muted-foreground">{desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+      <section className="mx-auto max-w-6xl px-4 py-10 md:py-12">
+        <div className="space-y-6">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <Badge variant="warm" className="mb-3">
+                精选资源
+              </Badge>
+              <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">先看几条主路线资源</h2>
+            </div>
+            <ButtonLink href="/resources" variant="secondary" size="sm">
+              查看资源库
+              <ArrowRight className="h-4 w-4" />
+            </ButtonLink>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {featuredResources.map((resource) => (
+              <article
+                key={resource.id}
+                className="flex min-h-56 flex-col rounded-lg border border-border bg-surface p-5 shadow-sm transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-md"
+              >
+                <div className="mb-3 flex flex-wrap gap-2">
+                  <Badge variant={resource.mainRoute ? "primary" : "outline"}>
+                    {resource.mainRoute ? "主路线" : "扩展资源"}
+                  </Badge>
+                  <Badge variant="outline">{resource.type}</Badge>
+                </div>
+                <h3 className="text-lg font-bold leading-7">{resource.title}</h3>
+                <p className="mt-2 line-clamp-3 text-sm leading-7 text-muted-foreground">
+                  {resource.summary || resource.reason}
+                </p>
+                <div className="mt-auto pt-5">
+                  <ButtonLink href={`/resources/${resource.id}`} variant="secondary" size="sm">
+                    查看使用建议
+                    <ArrowRight className="h-4 w-4" />
+                  </ButtonLink>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </main>
