@@ -2,6 +2,23 @@
 
 ## 2026-06-30
 
+### Released
+
+- PR #1 已合并到 `main` 并完成部署。
+- GitHub Pages 主站已发布：`https://wenu2026.github.io/doai/`。
+- 腾讯云备用站已发布：`http://124.221.141.173/`。
+- 部署版本包含首页 UI 优化、资源展示范围修正、三年级 AI 编程工作流资源，以及 `main` 上新增的腾讯云部署配置和量化入门资源。
+
+### Verified
+
+- `npm run typecheck` 通过。
+- `npm run lint` 通过。
+- `npm run test` 通过。
+- `npm run build` 通过，静态生成 22 个页面。
+- GitHub Pages workflow `28427535004` 通过。
+- 腾讯云 workflow `28427534963` 通过。
+- 主站和备用站均返回 200，首页已显示 `14 条首批资源`。
+
 ### Changed
 
 - 修正资源库删除范围：恢复资源列表，只隐藏截图中明确出现的资源卡片。

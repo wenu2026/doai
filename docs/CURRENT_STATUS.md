@@ -5,17 +5,22 @@
 ## 当前状态
 
 - 当前工作目录是 `D:\PMP\doai`。
-- 项目是 Next.js App Router 静态导出应用，生产 base path 为 `/doai`。
-- 本次修正了上一轮删除过度的问题：资源库列表已恢复，只隐藏截图中明确出现的资源卡片。
+- 项目是 Next.js App Router 静态导出应用，GitHub Pages 生产 base path 为 `/doai`，腾讯云备用部署使用站点根路径。
+- PR #1 `[codex] 优化首页并调整资源展示` 已合并到 `main`。
+- GitHub Pages 主站已部署成功：`https://wenu2026.github.io/doai/`。
+- 腾讯云备用站已部署成功：`http://124.221.141.173/`。
 - 首页精选资源区已恢复，留资二维码卡仍不展示。
+- 资源库列表已恢复，只隐藏截图中明确出现的资源卡片。
 - 页面评论待连接块仍不展示。
 
 ## 已完成
 
-- `src/app/resources/page.tsx`：恢复资源卡片列表，通过 `hiddenResourceIds` 精确隐藏截图中出现的资源。
-- `src/app/page.tsx`：恢复首页精选资源预览区，不恢复留资卡。
-- `tests/check-next-app.mjs`：同步为验证资源页读取资源数据，并只隐藏指定资源卡。
-- `docs/changes/2026-06-30-remove-visual-blocks.md`：补充说明本次修正边界。
+- 合并 `ui-redesign` 到 `main`，解决与 `main` 的冲突。
+- 保留 `main` 已新增的腾讯云部署配置和 `g2-quant-for-beginners` 资源。
+- 修复合并后的 Badge variant 类型不匹配问题。
+- 更新旧静态站测试中的资源数量断言为 14 条。
+- GitHub Actions `Deploy Next site to GitHub Pages` 已成功完成。
+- GitHub Actions `Deploy to Tencent Lighthouse` 已成功完成。
 
 ## 当前隐藏资源
 
@@ -33,18 +38,21 @@
 - `npm run typecheck`：通过。
 - `npm run lint`：通过。
 - `npm run test`：通过。
-- `npm run build`：通过，静态生成 21 个页面。
-- Playwright 复查 `/resources`：
-  - 已恢复显示 `Easy-Vibe`、`腾讯 CodeBuddy`、`Vibe Coding`、`Codex AI 编程工作流总览`、`Vibe Vibe`。
-  - 仍隐藏截图中的 `三年级：从想法到可演示应用`、一年级 7 天任务包、二年级两条资源。
+- `npm run build`：通过，静态生成 22 个页面。
+- GitHub Pages workflow：通过，run `28427535004`。
+- 腾讯云 workflow：通过，run `28427534963`。
+- 线上访问检查：
+  - `https://wenu2026.github.io/doai/` 返回 200，`Last-Modified: Tue, 30 Jun 2026 07:24:22 GMT`。
+  - `http://124.221.141.173/` 返回 200，`Last-Modified: Tue, 30 Jun 2026 07:24:27 GMT`。
+  - 首页线上内容包含 `14 条首批资源`、`开源 AI 学习路线图`、`精选资源`、`Easy-Vibe：用 AI 做出第一个可演示应用`。
 
 ## 当前问题
 
-- 如果二年级也需要保留内容，需要从隐藏列表移除对应资源；当前隐藏是严格按截图中出现的卡片执行。
-- 当前工作区仍有本次开始前已存在的未提交样式/组件改动；本次不回退这些改动。
+- GitHub Actions 提示 Node.js 20 action 被平台强制运行在 Node.js 24；本次部署成功，不影响当前访问，但后续可升级相关 actions 版本或运行环境配置。
+- 当前主工作区仍有本次开始前已存在的未提交样式/组件改动；本次不回退这些改动。
 - `.playwright-cli/` 和 `output/` 是本地 Playwright 验证产物，默认不作为业务代码提交。
 
 ## 下一步
 
-- 本地验收重点检查 `/resources`：三年级未截图资源应恢复显示；截图中指定卡片应不显示。
-- 发布前再次执行 `npm run typecheck`、`npm run lint`、`npm run test`、`npm run build`。
+- 手工验收主站：打开 `https://wenu2026.github.io/doai/`，重点检查首页和资源库展示。
+- 如需继续压缩首页高度或调整隐藏资源范围，再基于 `main` 新开小分支处理。
